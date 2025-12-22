@@ -8,28 +8,71 @@
 :root{
  --red:#c62828; --blue:#1565c0; --orange:#ef6c00; --yellow:#f9a825;
 }
-body{font-family:Arial;background:#f2f4f7;padding:10px}
+body{font-family:Arial, sans-serif;background:#f2f4f7;padding:0;margin:0}
 .container{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:8px}
+nav{background:var(--blue);color:#fff;padding:10px;display:flex;justify-content:space-around;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;font-weight:bold;margin:5px}
+nav a:hover{text-decoration:underline}
 h1,h2{text-align:center;color:var(--blue)}
 .section{margin-top:25px;border-top:4px solid var(--yellow);padding-top:15px}
 label{font-weight:bold;display:block;margin-top:10px}
 input,select,textarea{width:100%;padding:8px;margin-top:5px}
-button{margin-top:15px;padding:12px;width:100%;background:var(--blue);color:#fff;border:none}
+button{margin-top:15px;padding:12px;width:100%;background:var(--blue);color:#fff;border:none;cursor:pointer;font-weight:bold}
 button:hover{background:var(--red)}
-.logo{height:100px;border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center}
-.id-card{border:2px solid var(--orange);padding:10px;max-width:300px;margin:auto;text-align:center}
+.logo{height:100px;border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
 table{width:100%;border-collapse:collapse}
 th,td{border:1px solid #ccc;padding:6px;text-align:center}
 th{background:var(--yellow)}
 .hide{display:none}
+footer{background:#333;color:#fff;padding:15px;text-align:center;margin-top:20px;border-top:4px solid var(--yellow)}
+
+/* Professional ID Card */
+.id-card{
+  width:350px;
+  margin:auto;
+  background:#1565c0;
+  color:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  padding:15px;
+  font-family:Arial,sans-serif;
+}
+.id-card .logo{
+  background:#fff;
+  color:var(--blue);
+  font-weight:bold;
+  font-size:18px;
+  text-align:center;
+  padding:5px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+.id-card .member-info{display:flex;align-items:center;margin-top:10px}
+.id-card .photo{flex:1}
+.id-card .photo img{width:80px;height:80px;border-radius:50%;border:2px solid #fff}
+.id-card .details{flex:2;padding-left:10px;font-size:14px;line-height:1.4}
+.id-card .footer{margin-top:10px;font-size:12px;text-align:center;background:rgba(255,255,255,0.2);padding:5px;border-radius:5px}
 </style>
 </head>
 <body>
+
+<!-- Navigation -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#registration">Register</a>
+  <a href="#login">Login</a>
+  <a href="#members">Members List</a>
+  <a href="#contact">Contact</a>
+</nav>
+
 <div class="container">
+
+<!-- Logo & Header -->
 <div class="logo">CAF LOGO HERE</div>
 <h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
 
-<div class="section">
+<!-- About -->
+<div class="section" id="about">
 <h2>About the Forum</h2>
 <p>
 Community Awareness Forum (CAF) is committed to awareness creation,
@@ -39,10 +82,10 @@ and community development.
 </div>
 
 <!-- REGISTRATION -->
-<div class="section">
+<div class="section" id="registration">
 <h2>Membership Registration</h2>
 <label>Full Name</label><input id="name">
-<label>Email</label><input id="email">
+<label>Email</label><input id="email" type="email">
 <label>Password</label><input id="password" type="password">
 <label>Phone</label><input id="phone">
 <label>Gender</label><select id="gender"><option>Male</option><option>Female</option></select>
@@ -56,15 +99,16 @@ and community development.
 <label>Passport Photograph (optional)</label><input type="file" id="passport">
 <label>
 <input type="checkbox" id="agree">
-I agree with CAF Constitution, Terms & Conditions
+I agree with <a href="#" target="_blank">CAF Constitution, Terms & Conditions</a>
 </label>
 <button onclick="register()">Submit Registration</button>
+<button onclick="printForm()">Print Registration Form</button>
 </div>
 
 <!-- LOGIN -->
-<div class="section">
+<div class="section" id="login">
 <h2>Member Login</h2>
-<label>Email</label><input id="loginEmail">
+<label>Email</label><input id="loginEmail" type="email">
 <label>Password</label><input id="loginPassword" type="password">
 <button onclick="login()">Login</button>
 </div>
@@ -73,23 +117,42 @@ I agree with CAF Constitution, Terms & Conditions
 <div class="section hide" id="idSection">
 <h2>CAF ID Card</h2>
 <div class="id-card" id="idCard"></div>
-<button onclick="window.print()">Print / Save PDF</button>
+<button onclick="window.print()">Print / Save ID Card</button>
 </div>
 
 <!-- MEMBERS LIST -->
-<div class="section">
+<div class="section" id="members">
 <h2>Members List (Local)</h2>
 <table id="membersTable">
 <tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>
 </table>
 </div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+<h2>Contact Us</h2>
+<p>Community Awareness Forum (CAF)</p>
+<p>123 Main Street, Nguru, Yobe, Nigeria</p>
+<p>Email: <a href="mailto:communityawarenessforum1234@gmail.com">communityawarenessforum1234@gmail.com</a> | Phone: 08122280304</p>
+<label>Send us a message:</label>
+<textarea id="message" placeholder="Type your message here"></textarea>
+<button onclick="sendMessage()">Send Message</button>
 </div>
 
+</div> <!-- container -->
+
+<!-- Footer -->
+<footer>
+&copy; 2025 Community Awareness Forum (CAF). All Rights Reserved.
+</footer>
+
 <script>
+// Generate CAF ID
 function generateID(){
  return "CAF-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
 }
 
+// Save member to localStorage
 function saveMember(member){
  let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
  members.push(member);
@@ -97,6 +160,7 @@ function saveMember(member){
  updateMembersTable();
 }
 
+// Update members table
 function updateMembersTable(){
  let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
  membersTable.innerHTML="<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>";
@@ -105,21 +169,32 @@ function updateMembersTable(){
  });
 }
 
+// Show Professional ID Card
 function showIDCard(member){
   idCard.innerHTML = `
-   <strong>Community Awareness Forum (CAF)</strong><br>
-   Name: ${member.name}<br>
-   CAF ID: ${member.cafID}<br>
-   Position: ${member.position}<br>
-   Gender: ${member.gender}<br>
-   Marital Status: ${member.marital}<br>
-   Phone: ${member.phone}<br>
-   Email: ${member.email}<br>
-   ${member.passport ? '<img src="'+member.passport+'" style="width:100px;border-radius:50%">' : ''}
+    <div class="logo">CAF LOGO</div>
+    <div class="member-info">
+      <div class="photo">
+        ${member.passport ? '<img src="'+member.passport+'">' : '<img src="https://via.placeholder.com/80">'}
+      </div>
+      <div class="details">
+        <strong>${member.name}</strong><br>
+        CAF ID: ${member.cafID}<br>
+        Position: ${member.position}<br>
+        Gender: ${member.gender}<br>
+        Marital: ${member.marital}<br>
+        Phone: ${member.phone}<br>
+        Email: ${member.email}
+      </div>
+    </div>
+    <div class="footer">
+      Contact: 08122280304 | Email: communityawarenessforum1234@gmail.com
+    </div>
   `;
   idSection.classList.remove("hide");
 }
 
+// Register member
 function register(){
  if(!agree.checked){ alert("Please agree to terms"); return; }
  const cafID = generateID();
@@ -141,7 +216,6 @@ function register(){
    saveMember(member);
    showIDCard(member);
    alert("Registration successful! CAF ID: "+cafID);
-   // Optional: open WhatsApp message
    window.open(`https://wa.me/234${phone.value}?text=Welcome%20to%20CAF.%20Your%20ID%20is%20${cafID}`,"_blank");
  };
  if(passport.files[0]){
@@ -151,6 +225,7 @@ function register(){
  }
 }
 
+// Login
 function login(){
  let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
  let member = members.find(m=>m.email===loginEmail.value && m.password===loginPassword.value);
@@ -160,9 +235,27 @@ function login(){
  } else { alert("Invalid credentials"); }
 }
 
-// initialize
+// Send message
+function sendMessage(){
+  const msg = document.getElementById("message").value;
+  if(!msg){ alert("Please enter a message"); return; }
+  alert("Message sent! Thank you for reaching out.");
+  document.getElementById("message").value="";
+}
+
+// Print registration form only
+function printForm(){
+  let printContents = document.getElementById("registration").innerHTML;
+  let originalContents = document.body.innerHTML;
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
+  location.reload();
+}
+
+// Initialize members table
 updateMembersTable();
 </script>
+
 </body>
 </html>
-
