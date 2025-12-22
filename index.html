@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Awareness Forum (CAF)</title>
+<style>
+:root{
+ --red:#c62828; --blue:#1565c0; --orange:#ef6c00; --yellow:#f9a825;
+}
+body{font-family:Arial;background:#f2f4f7;padding:10px}
+.container{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:8px}
+h1,h2{text-align:center;color:var(--blue)}
+.section{margin-top:25px;border-top:4px solid var(--yellow);padding-top:15px}
+label{font-weight:bold;display:block;margin-top:10px}
+input,select,textarea{width:100%;padding:8px;margin-top:5px}
+button{margin-top:15px;padding:12px;width:100%;background:var(--blue);color:#fff;border:none}
+button:hover{background:var(--red)}
+.logo{height:100px;border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center}
+.id-card{border:2px solid var(--orange);padding:10px;max-width:300px;margin:auto;text-align:center}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ccc;padding:6px;text-align:center}
+th{background:var(--yellow)}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="logo">CAF LOGO HERE</div>
+<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
+
+<div class="section">
+<h2>About the Forum</h2>
+<p>
+Community Awareness Forum (CAF) is committed to awareness creation,
+peace building, youth empowerment, education, health advocacy,
+and community development.
+</p>
+</div>
+
+<!-- REGISTRATION -->
+<div class="section">
+<h2>Membership Registration</h2>
+<label>Full Name</label><input id="name">
+<label>Email</label><input id="email">
+<label>Password</label><input id="password" type="password">
+<label>Phone</label><input id="phone">
+<label>Gender</label><select id="gender"><option>Male</option><option>Female</option></select>
+<label>Marital Status</label><select id="marital"><option>Single</option><option>Married</option></select>
+<label>Position</label><input id="position">
+<label>Primary School</label><input id="primary">
+<label>Secondary School</label><input id="secondary">
+<label>Higher Institution</label><input id="higher">
+<label>Next of Kin Name</label><input id="nok">
+<label>Next of Kin Phone</label><input id="nokphone">
+<label>Passport Photograph (optional)</label><input type="file" id="passport">
+<label>
+<input type="checkbox" id="agree">
+I agree with CAF Constitution, Terms & Conditions
+</label>
+<button onclick="register()">Submit Registration</button>
+</div>
+
+<!-- LOGIN -->
+<div class="section">
+<h2>Member Login</h2>
+<label>Email</label><input id="loginEmail">
+<label>Password</label><input id="loginPassword" type="password">
+<button onclick="login()">Login</button>
+</div>
+
+<!-- ID CARD -->
+<div class="section hide" id="idSection">
+<h2>CAF ID Card</h2>
+<div class="id-card" id="idCard"></div>
+<button onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<!-- MEMBERS LIST -->
+<div class="section">
+<h2>Members List (Local)</h2>
+<table id="membersTable">
+<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>
+</table>
+</div>
+</div>
+
+<script>
+function generateID(){
+ return "CAF-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
+}
+
+function saveMember(member){
+ let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
+ members.push(member);
+ localStorage.setItem("cafMembers", JSON.stringify(members));
+ updateMembersTable();
+}
+
+function updateMembersTable(){
+ let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
+ membersTable.innerHTML="<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>";
+ members.forEach(m=>{
+   membersTable.innerHTML+=`<tr><td>${m.cafID}</td><td>${m.name}</td><td>${m.position}</td></tr>`;
+ });
+}
+
+function showIDCard(member){
+  idCard.innerHTML = `
+   <strong>Community Awareness Forum (CAF)</strong><br>
+   Name: ${member.name}<br>
+   CAF ID: ${member.cafID}<br>
+   Position: ${member.position}<br>
+   Gender: ${member.gender}<br>
+   Marital Status: ${member.marital}<br>
+   Phone: ${member.phone}<br>
+   Email: ${member.email}<br>
+   ${member.passport ? '<img src="'+member.passport+'" style="width:100px;border-radius:50%">' : ''}
+  `;
+  idSection.classList.remove("hide");
+}
+
+function register(){
+ if(!agree.checked){ alert("Please agree to terms"); return; }
+ const cafID = generateID();
+ let reader = new FileReader();
+ reader.onload = function(e){
+   const member = {
+     cafID,
+     name:name.value,
+     email:email.value,
+     phone:phone.value,
+     gender:gender.value,
+     marital:marital.value,
+     position:position.value,
+     education:{primary:primary.value,secondary:secondary.value,higher:higher.value},
+     nextOfKin:{name:nok.value,phone:nokphone.value},
+     password: password.value,
+     passport:e.target.result
+   };
+   saveMember(member);
+   showIDCard(member);
+   alert("Registration successful! CAF ID: "+cafID);
+   // Optional: open WhatsApp message
+   window.open(`https://wa.me/234${phone.value}?text=Welcome%20to%20CAF.%20Your%20ID%20is%20${cafID}`,"_blank");
+ };
+ if(passport.files[0]){
+   reader.readAsDataURL(passport.files[0]);
+ } else {
+   reader.onload({target:{result:""}});
+ }
+}
+
+function login(){
+ let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
+ let member = members.find(m=>m.email===loginEmail.value && m.password===loginPassword.value);
+ if(member){
+   alert("Login successful");
+   showIDCard(member);
+ } else { alert("Invalid credentials"); }
+}
+
+// initialize
+updateMembersTable();
+</script>
+</body>
+</html>
