@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAF Membership System</title>
+
+<style>
+:root{
+ --red:#c62828; --blue:#1565c0; --orange:#ef6c00; --yellow:#f9a825;
+}
+body{font-family:Arial;background:#f2f4f7;padding:10px}
+.container{max-width:900px;margin:auto;background:#fff;padding:20px;border-radius:8px}
+h1,h2{text-align:center;color:var(--blue)}
+.section{margin-top:25px;border-top:4px solid var(--yellow);padding-top:15px}
+label{font-weight:bold;display:block;margin-top:10px}
+input,select,textarea{width:100%;padding:8px;margin-top:5px}
+button{margin-top:15px;padding:12px;width:100%;background:var(--blue);color:#fff;border:none}
+button:hover{background:var(--red)}
+.logo{height:100px;border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center}
+.id-card{border:2px solid var(--orange);padding:10px;max-width:300px}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ccc;padding:6px}
+th{background:var(--yellow)}
+.hide{display:none}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="logo">CAF LOGO</div>
+<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
+
+<div class="section">
+<h2>About CAF</h2>
+<p>CAF is a community organization focused on awareness, unity, peace, education and development.</p>
+</div>
+
+<!-- REGISTRATION -->
+<div class="section">
+<h2>Membership Registration</h2>
+
+<label>Full Name</label><input id="name">
+<label>Gender</label><select id="gender"><option>Male</option><option>Female</option></select>
+<label>Marital Status</label><select id="marital"><option>Single</option><option>Married</option></select>
+<label>Position</label><input id="position">
+<label>Phone</label><input id="phone">
+<label>Email</label><input id="email">
+
+<label>Primary School</label><input id="primary">
+<label>Secondary School</label><input id="secondary">
+<label>Higher Institution</label><input id="higher">
+
+<label>Next of Kin Name</label><input id="nok">
+<label>Next of Kin Phone</label><input id="nokphone">
+
+<label>Passport Photo</label><input type="file" id="passport">
+
+<label>
+<input type="checkbox" id="agree"> I agree to CAF Constitution & Terms
+</label>
+
+<button onclick="register()">Submit Registration</button>
+</div>
+
+<!-- ID CARD -->
+<div class="section hide" id="idSection">
+<h2>CAF ID Card</h2>
+<div class="id-card" id="idCard"></div>
+<button onclick="window.print()">Print / Save PDF</button>
+</div>
+
+<!-- LOGIN -->
+<div class="section">
+<h2>Member Login</h2>
+<label>CAF ID</label><input id="loginID">
+<button onclick="login()">Login</button>
+</div>
+
+<!-- MEMBERS LIST -->
+<div class="section">
+<h2>Members List (This Device)</h2>
+<table id="membersTable">
+<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>
+</table>
+</div>
+
+</div>
+
+<script>
+function generateID(){
+ return "CAF-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
+}
+
+function register(){
+ if(!agree.checked){alert("Agree to terms");return}
+ const id = generateID();
+ const member={
+  id, name:name.value, gender:gender.value,
+  marital:marital.value, position:position.value,
+  phone:phone.value, email:email.value
+ };
+ let db=JSON.parse(localStorage.getItem("cafMembers")||"[]");
+ db.push(member);
+ localStorage.setItem("cafMembers",JSON.stringify(db));
+
+ idCard.innerHTML=`
+ <strong>CAF ID CARD</strong><br>
+ Name: ${member.name}<br>
+ ID: ${member.id}<br>
+ Position: ${member.position}
+ `;
+ idSection.classList.remove("hide");
+
+ alert("Registered! CAF ID: "+id);
+
+ window.open(
+ `https://wa.me/234${phone.value}?text=Welcome%20to%20CAF.%20Your%20ID%20is%20${id}`,
+ "_blank"
+ );
+
+ renderMembers();
+}
+
+function renderMembers(){
+ const db=JSON.parse(localStorage.getItem("cafMembers")||"[]");
+ membersTable.innerHTML="<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>";
+ db.forEach(m=>{
+  membersTable.innerHTML+=`<tr><td>${m.id}</td><td>${m.name}</td><td>${m.position}</td></tr>`;
+ });
+}
+
+function login(){
+ const db=JSON.parse(localStorage.getItem("cafMembers")||"[]");
+ const m=db.find(x=>x.id===loginID.value);
+ if(!m){alert("Not found");return}
+ alert("Welcome "+m.name);
+ idCard.innerHTML=`
+ <strong>CAF ID CARD</strong><br>
+ Name: ${m.name}<br>
+ ID: ${m.id}<br>
+ Position: ${m.position}
+ `;
+ idSection.classList.remove("hide");
+}
+
+renderMembers();
+</script>
+
+</body>
+</html>
