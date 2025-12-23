@@ -3,212 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Community Awareness Forum (CAF)</title>
-
+<title>Community Awareness Forum</title>
 <style>
 :root{
-  --primary:#1e3a8a;
-  --accent:#dc2626;
-  --bg:#f1f5f9;
-  --card:#ffffff;
+  --red:#dc2626; --black:#111; --yellow:#facc15; --orange:#f97316; --bg:#f3f4f6; --card:#fff;
 }
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family: "Segoe UI", system-ui, Arial, sans-serif;
-  background:var(--bg);
-  color:#111827;
-}
-
-header{
-  background:var(--card);
-  padding:20px;
-  text-align:center;
-  box-shadow:0 2px 10px rgba(0,0,0,.05);
-}
-
-header h1{
-  margin:0;
-  color:var(--primary);
-  font-size:28px;
-}
-header h1 span{color:var(--accent)}
-header p{margin:5px 0 0;font-size:14px;color:#475569}
-
-section{
-  max-width:1000px;
-  margin:30px auto;
-  background:var(--card);
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 10px 25px rgba(0,0,0,.06);
-}
-
-.hidden{display:none}
-
-h2{
-  margin-top:0;
-  color:var(--primary);
-}
-
-input, textarea{
-  width:100%;
-  padding:12px;
-  margin:8px 0;
-  border-radius:8px;
-  border:1px solid #cbd5f5;
-  font-size:15px;
-}
-
-button{
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  padding:12px 18px;
-  border-radius:8px;
-  font-size:15px;
-  cursor:pointer;
-  margin-top:10px;
-}
-button.secondary{
-  background:#475569;
-}
-button:hover{opacity:.9}
-
-/* DASHBOARD */
-.nav{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:15px;
-}
-
-/* ID CARD */
-.id-card{
-  width:340px;
-  margin:auto;
-  border-radius:16px;
-  padding:20px;
-  background:linear-gradient(135deg,#1e3a8a,#2563eb);
-  color:#fff;
-}
-.id-card h3{margin:0 0 10px}
-.id-card .box{
-  background:#fff;
-  color:#111;
-  border-radius:8px;
-  padding:10px;
-  margin-top:10px;
-  font-size:14px;
-}
-.sign{
-  margin-top:25px;
-  border-top:1px solid #fff;
-  font-size:12px;
-  padding-top:5px;
-}
-
-/* PRINT */
-@media print{
-  body *{visibility:hidden}
-  .print-id,.print-id *,
-  .print-form,.print-form *{
-    visibility:visible;
-  }
-  .print-id,.print-form{
-    position:absolute;
-    inset:0;
-  }
-}
+*{box-sizing:border-box;}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--black);}
+header{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;text-align:center;padding:25px 10px;}
+header h1{margin:0;font-size:28px;}
+header p{margin:5px 0 0;font-size:14px;}
+section{max-width:1100px;margin:20px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.08);}
+.hidden{display:none;}
+h2{color:var(--red);margin-top:0;}
+input,textarea,select{width:100%;padding:10px;margin:6px 0;border-radius:6px;border:1px solid #cbd5e1;font-size:14px;}
+button{padding:12px 18px;border:none;border-radius:8px;font-size:15px;cursor:pointer;color:#fff;background:var(--orange);margin-top:8px;}
+button:hover{opacity:.9;}
+button.secondary{background:var(--yellow);color:#000;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;}
+.hero img{width:100%;border-radius:12px;min-height:220px;object-fit:cover;background:#e5e7eb;}
+.id-card{width:350px;margin:auto;padding:20px;border-radius:16px;background:linear-gradient(135deg,var(--red),var(--yellow));color:#111;}
+.id-card img{width:80px;height:80px;border-radius:6px;margin:5px;}
+.id-card .logo{width:60px;height:60px;margin:5px;}
+.id-card .box{background:#fff;color:#000;padding:8px;border-radius:6px;margin-top:10px;font-size:13px;}
+.sign{margin-top:15px;border-top:1px solid #111;padding-top:5px;font-size:12px;display:flex;justify-content:space-between;}
+.sign span{flex:1;text-align:center;}
+.qr-code{width:80px;height:80px;margin:10px auto;background:#000;border-radius:6px;display:block;}
+footer{text-align:center;margin-top:20px;font-size:13px;color:#64748b;}
+#login{display:flex;justify-content:center;align-items:center;min-height:60vh;}
+#login .login-card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:300px;text-align:center;}
+#login h2{margin-bottom:20px;color:var(--orange);}
+#login input{margin-bottom:15px;}
+#themeSelector{margin-bottom:15px;padding:6px;border-radius:6px;border:1px solid #cbd5e1;width:100%;}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1>CAF<span>®</span> Community Awareness Forum</h1>
-  <p>Promoting awareness, unity & development</p>
+<h1>Full Name (CAF)</h1>
+<p>Building informed, united and empowered communities</p>
 </header>
 
 <!-- LOGIN -->
 <section id="login">
-<h2>Member Login</h2>
+<div class="login-card">
+<h2>Login</h2>
+<select id="themeSelector" onchange="changeTheme()">
+<option value="default">Select Theme</option>
+<option value="red">Red</option>
+<option value="black">Black</option>
+<option value="yellow">Yellow</option>
+<option value="orange">Orange</option>
+</select>
 <input id="luser" placeholder="Username">
 <input id="lpass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
-<p style="font-size:13px;color:#64748b">Admin: cafreg / caf2025</p>
+<p style="font-size:12px;color:#555;">Admin: cafreg / caf2025</p>
+</div>
 </section>
 
 <!-- DASHBOARD -->
 <section id="dashboard" class="hidden">
-<h2>Dashboard</h2>
-<div class="nav">
-<button onclick="show('about')">About CAF</button>
-<button onclick="show('projects')">Forum Projects</button>
-<button onclick="show('register')">Registration Form</button>
+<div class="hero">
+<div>
+<h2>Welcome to CAF</h2>
+<p>View community activities, upcoming projects, and engage with your fellow members.</p>
+<input type="file" id="galleryUpload" multiple onchange="addGalleryImages()">
+</div>
+<div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;"></div>
+</div>
+<br>
+<div class="grid">
+<button onclick="show('register')">Membership Registration</button>
 <button onclick="show('idcard')">My ID Card</button>
+<button onclick="show('projects')">Forum Projects</button>
 <button onclick="show('attendance')">Attendance</button>
 <button onclick="showMembers()">Members List</button>
 </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about" class="hidden">
-<h2>About the Forum</h2>
-<p>
-Community Awareness Forum (CAF) is a civic platform committed to
-community development, public sensitization, youth engagement,
-and advocacy for positive social change.
-</p>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="hidden">
-<h2>Forum Projects</h2>
-<textarea id="proj" rows="6" readonly>
-• Community sensitization campaigns
-• Youth engagement programs
-• Advocacy & outreach initiatives
-</textarea>
+<footer>All rights reserved &copy; CAF 2025</footer>
 </section>
 
 <!-- REGISTRATION -->
 <section id="register" class="hidden print-form">
-<h2>Membership Registration</h2>
-
-<form action="mailto:communityawarenessforum2025@gmail.com" method="post" enctype="text/plain">
-<input placeholder="Full Name" required>
-<input placeholder="Phone Number" required>
-<input placeholder="Email" required>
-<input placeholder="Address" required>
-<input placeholder="Occupation" required>
-
-<div class="sign" style="color:#000">Chairman Signature</div>
-
-<button type="submit">Submit Registration</button>
-<button type="button" class="secondary" onclick="window.print()">Print Form</button>
+<h2>Membership Registration Form</h2>
+<form id="regForm" onsubmit="return false;">
+<div style="display:flex;gap:10px;">
+<input type="file" id="passport" accept="image/*">
+<input type="file" id="logo" accept="image/*">
+</div>
+<input placeholder="Full Name" id="fullname" required>
+<input placeholder="Phone Number" id="phone" required>
+<input placeholder="Email" id="email" required>
+<input placeholder="Address" id="address" required>
+<input placeholder="Next of Kin Name" id="nok" required>
+<input placeholder="Next of Kin Phone" id="nokphone" required>
+<input placeholder="Highest Qualification" id="education" required>
+<div>
+<input type="checkbox" id="agree" required> I agree with the Terms, Constitution and Policies of CAF
+</div>
+<div class="sign">
+<span>Chairman Signature</span>
+<span>Secretary Signature</span>
+</div>
+<p>CAF ID: <span id="formCAFID">CAF-2025-001</span></p>
+<button onclick="printForm()">Print Form</button>
+<button onclick="saveMember()">Save Member</button>
 </form>
 </section>
 
 <!-- ID CARD -->
 <section id="idcard" class="hidden print-id">
 <h2>Member ID Card</h2>
-
 <div class="id-card">
-<h3>Community Awareness Forum</h3>
-<p>Member Name</p>
-<p>ID: CAF-2025</p>
-
-<div class="box">
-Verification Code<br>
-<strong>CAF-SEC-2025</strong>
+<div style="display:flex;justify-content:space-between;align-items:center;">
+<img id="idPassport" src="" alt="Passport Photo">
+<img id="idLogo" src="" alt="Forum Logo">
 </div>
-
-<div class="sign">Chairman Signature</div>
+<p id="idName">Full Name (CAF)</p>
+<div class="box">CAF ID: <span id="idCAFID">CAF-2025-001</span></div>
+<div class="sign">
+<span>Chairman</span>
+<span>Member</span>
 </div>
+<div class="qr-code" id="qrCode"></div>
+</div>
+<button onclick="printID()">Print ID Card</button>
+</section>
 
-<button onclick="window.print()">Print ID Card</button>
+<!-- PROJECTS -->
+<section id="projects" class="hidden">
+<h2>Forum Projects</h2>
+<ul id="projectList">
+<li>Community sensitization campaigns</li>
+<li>Youth engagement and leadership programs</li>
+<li>Advocacy & outreach initiatives</li>
+</ul>
 </section>
 
 <!-- ATTENDANCE -->
@@ -217,46 +147,111 @@ Verification Code<br>
 <input placeholder="Meeting Title">
 <input type="date">
 <input type="time">
-<div style="height:50px;border:1px dashed #94a3b8;margin-top:10px">Signature</div>
+<div style="height:50px;border:1px dashed #000;margin-top:10px;">Signature</div>
 <button onclick="window.print()">Print Attendance</button>
 </section>
 
-<!-- MEMBERS -->
+<!-- MEMBERS LIST -->
 <section id="members" class="hidden">
 <h2>Members List</h2>
-<input id="code" placeholder="Enter access code">
+<input id="code" placeholder="Access Code">
 <button onclick="unlock()">Unlock</button>
 <div id="mlist" class="hidden">
 <p>Member data visible</p>
 </div>
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
-let isAdmin=false;
+let members=[];
+let memberCount=0;
 
 function login(){
-  if(luser.value==="cafreg" && lpass.value==="caf2025"){
-    isAdmin=true;
-    proj.removeAttribute("readonly");
-  }
-  login.classList.add("hidden");
-  dashboard.classList.remove("hidden");
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
 }
 
 function show(id){
   document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-  dashboard.classList.remove("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
   document.getElementById(id).classList.remove("hidden");
 }
 
-function showMembers(){show("members")}
-
 function unlock(){
-  if(code.value==="caf1234"){
-    mlist.classList.remove("hidden");
+  if(document.getElementById("code").value==="caf1234"){
+    document.getElementById("mlist").classList.remove("hidden");
   }else alert("Wrong access code");
 }
-</script>
 
+// Save Member Info
+function saveMember(){
+  memberCount++;
+  let cafID="CAF-2025-"+String(memberCount).padStart(3,'0');
+  document.getElementById("formCAFID").innerText=cafID;
+  document.getElementById("idCAFID").innerText=cafID;
+
+  let member={
+    fullname:document.getElementById("fullname").value,
+    phone:document.getElementById("phone").value,
+    email:document.getElementById("email").value,
+    passport:document.getElementById("passport").files[0],
+    logo:document.getElementById("logo").files[0],
+    cafID:cafID
+  };
+  members.push(member);
+  alert("Member saved! CAF ID: "+cafID+" You can now print the ID.");
+  generateIDCard(member);
+}
+
+// Generate ID Card preview
+function generateIDCard(member){
+  if(member.passport){
+    let reader=new FileReader();
+    reader.onload=function(e){document.getElementById("idPassport").src=e.target.result;}
+    reader.readAsDataURL(member.passport);
+  }
+  if(member.logo){
+    let reader=new FileReader();
+    reader.onload=function(e){document.getElementById("idLogo").src=e.target.result;}
+    reader.readAsDataURL(member.logo);
+  }
+  document.getElementById("idName").innerText=member.fullname + " (CAF)";
+  let qr = new QRious({element:document.getElementById("qrCode"), value:member.fullname+"|"+member.cafID});
+}
+
+// Print functions
+function printForm(){window.print();}
+function printID(){window.print();}
+
+// Gallery
+function addGalleryImages(){
+  let files=document.getElementById("galleryUpload").files;
+  let gallery=document.getElementById("gallery");
+  gallery.innerHTML="";
+  for(let f of files){
+    let reader=new FileReader();
+    reader.onload=function(e){
+      let img=document.createElement("img");
+      img.src=e.target.result;
+      img.style.width="100%";
+      img.style.borderRadius="8px";
+      gallery.appendChild(img);
+    }
+    reader.readAsDataURL(f);
+  }
+}
+
+// Login Themes
+function changeTheme(){
+  let theme=document.getElementById("themeSelector").value;
+  switch(theme){
+    case "red": document.body.style.background="#fee2e2"; document.body.style.color="#111"; break;
+    case "black": document.body.style.background="#111"; document.body.style.color="#fff"; break;
+    case "yellow": document.body.style.background="#fef9c3"; document.body.style.color="#111"; break;
+    case "orange": document.body.style.background="#ffedd5"; document.body.style.color="#111"; break;
+    default: document.body.style.background=var("--bg"); document.body.style.color=var("--black");
+  }
+}
+</script>
 </body>
 </html>
