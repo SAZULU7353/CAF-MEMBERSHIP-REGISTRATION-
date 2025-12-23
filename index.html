@@ -4,257 +4,193 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Community Awareness Forum (CAF)</title>
-<style>
-:root{
- --red:#c62828; --blue:#1565c0; --orange:#ef6c00; --yellow:#f9a825;
-}
-body{font-family:Arial, sans-serif;background:#f2f4f7;padding:0;margin:0}
-.container{max-width:1000px;margin:auto;background:#fff;padding:20px;border-radius:8px}
-nav{background:var(--blue);color:#fff;padding:10px;display:flex;justify-content:space-around;flex-wrap:wrap}
-nav a{color:#fff;text-decoration:none;font-weight:bold;margin:5px}
-nav a:hover{text-decoration:underline}
-h1,h2{text-align:center;color:var(--blue)}
-.section{margin-top:25px;border-top:4px solid var(--yellow);padding-top:15px}
-label{font-weight:bold;display:block;margin-top:10px}
-input,select,textarea{width:100%;padding:8px;margin-top:5px}
-button{margin-top:15px;padding:12px;width:100%;background:var(--blue);color:#fff;border:none;cursor:pointer;font-weight:bold}
-button:hover{background:var(--red)}
-.logo{height:100px;border:2px dashed var(--orange);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px}
-table{width:100%;border-collapse:collapse}
-th,td{border:1px solid #ccc;padding:6px;text-align:center}
-th{background:var(--yellow)}
-.hide{display:none}
-footer{background:#333;color:#fff;padding:15px;text-align:center;margin-top:20px;border-top:4px solid var(--yellow)}
 
-/* Professional ID Card */
-.id-card{
-  width:350px;
-  margin:auto;
+<style>
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f6f8;
+  margin:0;
+}
+.logo{
+  font-size:32px;
+  font-weight:bold;
+  color:#1565c0;
+  text-align:center;
+  margin:20px 0;
+}
+.logo span{color:#c62828}
+section{
+  background:#fff;
+  margin:20px auto;
+  padding:20px;
+  max-width:900px;
+  border-radius:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+.hidden{display:none}
+input,textarea{
+  width:100%;
+  padding:8px;
+  margin:6px 0;
+}
+button{
   background:#1565c0;
   color:#fff;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  padding:10px 15px;
+  border:none;
+  border-radius:4px;
+  cursor:pointer;
+}
+button:hover{background:#0d47a1}
+
+/* ID CARD */
+.id-card{
+  width:320px;
+  border:2px solid #1565c0;
   padding:15px;
-  font-family:Arial,sans-serif;
-}
-.id-card .logo{
-  background:#fff;
-  color:var(--blue);
-  font-weight:bold;
-  font-size:18px;
   text-align:center;
-  padding:5px;
-  border-radius:8px;
-  margin-bottom:10px;
 }
-.id-card .member-info{display:flex;align-items:center;margin-top:10px}
-.id-card .photo{flex:1}
-.id-card .photo img{width:80px;height:80px;border-radius:50%;border:2px solid #fff}
-.id-card .details{flex:2;padding-left:10px;font-size:14px;line-height:1.4}
-.id-card .footer{margin-top:10px;font-size:12px;text-align:center;background:rgba(255,255,255,0.2);padding:5px;border-radius:5px}
+.back-code{
+  margin-top:10px;
+  padding:8px;
+  border:1px dashed #000;
+  font-size:12px;
+}
+.sign{
+  margin-top:20px;
+  border-top:1px solid #000;
+  font-size:12px;
+}
+
+/* PRINT */
+@media print{
+  body *{visibility:hidden}
+  .print-id,.print-id *,
+  .print-form,.print-form *{
+    visibility:visible;
+  }
+  .print-id,.print-form{
+    position:absolute;
+    top:0;left:0;width:100%;
+  }
+}
 </style>
 </head>
+
 <body>
 
-<!-- Navigation -->
-<nav>
-  <a href="#about">About</a>
-  <a href="#registration">Register</a>
-  <a href="#login">Login</a>
-  <a href="#members">Members List</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<div class="container">
-
-<!-- Logo & Header -->
-<div class="logo">CAF LOGO HERE</div>
-<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
-
-<!-- About -->
-<div class="section" id="about">
-<h2>About the Forum</h2>
-<p>
-Community Awareness Forum (CAF) is committed to awareness creation,
-peace building, youth empowerment, education, health advocacy,
-and community development.
-</p>
-</div>
-
-<!-- REGISTRATION -->
-<div class="section" id="registration">
-<h2>Membership Registration</h2>
-<label>Full Name</label><input id="name">
-<label>Email</label><input id="email" type="email">
-<label>Password</label><input id="password" type="password">
-<label>Phone</label><input id="phone">
-<label>Gender</label><select id="gender"><option>Male</option><option>Female</option></select>
-<label>Marital Status</label><select id="marital"><option>Single</option><option>Married</option></select>
-<label>Position</label><input id="position">
-<label>Primary School</label><input id="primary">
-<label>Secondary School</label><input id="secondary">
-<label>Higher Institution</label><input id="higher">
-<label>Next of Kin Name</label><input id="nok">
-<label>Next of Kin Phone</label><input id="nokphone">
-<label>Passport Photograph (optional)</label><input type="file" id="passport">
-<label>
-<input type="checkbox" id="agree">
-I agree with <a href="#" target="_blank">CAF Constitution, Terms & Conditions</a>
-</label>
-<button onclick="register()">Submit Registration</button>
-<button onclick="printForm()">Print Registration Form</button>
-</div>
+<div class="logo">CAF<span>®</span> Community Awareness Forum</div>
 
 <!-- LOGIN -->
-<div class="section" id="login">
-<h2>Member Login</h2>
-<label>Email</label><input id="loginEmail" type="email">
-<label>Password</label><input id="loginPassword" type="password">
+<section id="login">
+<h3>Login</h3>
+<input id="luser" placeholder="Username">
+<input id="lpass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
-</div>
+<p><small>Admin: cafreg / caf2025</small></p>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+<h3>Dashboard</h3>
+<button onclick="show('register')">Register</button>
+<button onclick="show('idcard')">My ID Card</button>
+<button onclick="show('projects')">Projects</button>
+<button onclick="show('attendance')">Attendance</button>
+<button onclick="showMembers()">Members</button>
+</section>
+
+<!-- REGISTRATION -->
+<section id="register" class="hidden print-form">
+<h3>Membership Registration</h3>
+
+<form action="mailto:communityawarenessforum2025@gmail.com" method="post" enctype="text/plain">
+<input required placeholder="Full Name">
+<input required placeholder="Phone Number">
+<input required placeholder="Email">
+<input required placeholder="Address">
+<input required placeholder="Occupation">
+
+<p><b>Chairman Signature:</b></p>
+<div class="sign">Chairman</div>
+
+<button type="submit">Submit Registration</button>
+<button type="button" onclick="window.print()">Print Form</button>
+</form>
+</section>
 
 <!-- ID CARD -->
-<div class="section hide" id="idSection">
-<h2>CAF ID Card</h2>
-<div class="id-card" id="idCard"></div>
-<button onclick="window.print()">Print / Save ID Card</button>
+<section id="idcard" class="hidden print-id">
+<h3>ID Card</h3>
+<div class="id-card">
+<p><b>Community Awareness Forum</b></p>
+<p>Member Name</p>
+<p>ID: CAF-2025</p>
+
+<div class="back-code">
+CAF VERIFIED<br>
+Code: CAF-SEC-2025
 </div>
 
-<!-- MEMBERS LIST -->
-<div class="section" id="members">
-<h2>Members List (Local)</h2>
-<table id="membersTable">
-<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>
-</table>
+<div class="sign">Chairman Signature</div>
 </div>
+<button onclick="window.print()">Print ID Card</button>
+</section>
 
-<!-- CONTACT -->
-<div class="section" id="contact">
-<h2>Contact Us</h2>
-<p>Community Awareness Forum (CAF)</p>
-<p>123 Main Street, Nguru, Yobe, Nigeria</p>
-<p>Email: <a href="mailto:communityawarenessforum1234@gmail.com">communityawarenessforum1234@gmail.com</a> | Phone: 08122280304</p>
-<label>Send us a message:</label>
-<textarea id="message" placeholder="Type your message here"></textarea>
-<button onclick="sendMessage()">Send Message</button>
+<!-- ATTENDANCE -->
+<section id="attendance" class="hidden">
+<h3>Meeting Attendance</h3>
+<input placeholder="Meeting Title">
+<input type="date">
+<input type="time">
+<div style="height:50px;border:1px solid #000;margin-top:10px">Signature</div>
+<button onclick="window.print()">Print Attendance</button>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="hidden">
+<h3>Forum Projects</h3>
+<textarea id="projText" rows="6" readonly>
+Community sensitization programs, advocacy meetings, and youth engagement activities.
+</textarea>
+</section>
+
+<!-- MEMBERS -->
+<section id="members" class="hidden">
+<h3>Members List</h3>
+<input id="code" placeholder="Access Code">
+<button onclick="unlock()">Unlock</button>
+<div id="mlist" class="hidden">
+<p>Member data visible</p>
 </div>
-
-</div> <!-- container -->
-
-<!-- Footer -->
-<footer>
-&copy; 2025 Community Awareness Forum (CAF). All Rights Reserved.
-</footer>
+</section>
 
 <script>
-// Generate CAF ID
-function generateID(){
- return "CAF-"+new Date().getFullYear()+"-"+Math.floor(1000+Math.random()*9000);
-}
+let isAdmin=false;
 
-// Save member to localStorage
-function saveMember(member){
- let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
- members.push(member);
- localStorage.setItem("cafMembers", JSON.stringify(members));
- updateMembersTable();
-}
-
-// Update members table
-function updateMembersTable(){
- let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
- membersTable.innerHTML="<tr><th>CAF ID</th><th>Name</th><th>Position</th></tr>";
- members.forEach(m=>{
-   membersTable.innerHTML+=`<tr><td>${m.cafID}</td><td>${m.name}</td><td>${m.position}</td></tr>`;
- });
-}
-
-// Show Professional ID Card
-function showIDCard(member){
-  idCard.innerHTML = `
-    <div class="logo">CAF LOGO</div>
-    <div class="member-info">
-      <div class="photo">
-        ${member.passport ? '<img src="'+member.passport+'">' : '<img src="https://via.placeholder.com/80">'}
-      </div>
-      <div class="details">
-        <strong>${member.name}</strong><br>
-        CAF ID: ${member.cafID}<br>
-        Position: ${member.position}<br>
-        Gender: ${member.gender}<br>
-        Marital: ${member.marital}<br>
-        Phone: ${member.phone}<br>
-        Email: ${member.email}
-      </div>
-    </div>
-    <div class="footer">
-      Contact: 08122280304 | Email: communityawarenessforum1234@gmail.com
-    </div>
-  `;
-  idSection.classList.remove("hide");
-}
-
-// Register member
-function register(){
- if(!agree.checked){ alert("Please agree to terms"); return; }
- const cafID = generateID();
- let reader = new FileReader();
- reader.onload = function(e){
-   const member = {
-     cafID,
-     name:name.value,
-     email:email.value,
-     phone:phone.value,
-     gender:gender.value,
-     marital:marital.value,
-     position:position.value,
-     education:{primary:primary.value,secondary:secondary.value,higher:higher.value},
-     nextOfKin:{name:nok.value,phone:nokphone.value},
-     password: password.value,
-     passport:e.target.result
-   };
-   saveMember(member);
-   showIDCard(member);
-   alert("Registration successful! CAF ID: "+cafID);
-   window.open(`https://wa.me/234${phone.value}?text=Welcome%20to%20CAF.%20Your%20ID%20is%20${cafID}`,"_blank");
- };
- if(passport.files[0]){
-   reader.readAsDataURL(passport.files[0]);
- } else {
-   reader.onload({target:{result:""}});
- }
-}
-
-// Login
 function login(){
- let members = JSON.parse(localStorage.getItem("cafMembers") || "[]");
- let member = members.find(m=>m.email===loginEmail.value && m.password===loginPassword.value);
- if(member){
-   alert("Login successful");
-   showIDCard(member);
- } else { alert("Invalid credentials"); }
+  let u=luser.value,p=lpass.value;
+  if(u==="cafreg" && p==="caf2025"){isAdmin=true}
+  document.getElementById("login").classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  if(isAdmin){
+    document.getElementById("projText").removeAttribute("readonly");
+  }
 }
 
-// Send message
-function sendMessage(){
-  const msg = document.getElementById("message").value;
-  if(!msg){ alert("Please enter a message"); return; }
-  alert("Message sent! Thank you for reaching out.");
-  document.getElementById("message").value="";
+function show(id){
+  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+  dashboard.classList.remove("hidden");
+  document.getElementById(id).classList.remove("hidden");
 }
 
-// Print registration form only
-function printForm(){
-  let printContents = document.getElementById("registration").innerHTML;
-  let originalContents = document.body.innerHTML;
-  document.body.innerHTML = printContents;
-  window.print();
-  document.body.innerHTML = originalContents;
-  location.reload();
-}
+function showMembers(){show("members")}
 
-// Initialize members table
-updateMembersTable();
+function unlock(){
+  if(code.value==="caf1234"){
+    mlist.classList.remove("hidden");
+  }else alert("Wrong code");
+}
 </script>
 
 </body>
