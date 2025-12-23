@@ -6,60 +6,107 @@
 <title>Community Awareness Forum (CAF)</title>
 
 <style>
+:root{
+  --primary:#1e3a8a;
+  --accent:#dc2626;
+  --bg:#f1f5f9;
+  --card:#ffffff;
+}
+
+*{box-sizing:border-box}
+
 body{
-  font-family:Arial, sans-serif;
-  background:#f4f6f8;
   margin:0;
+  font-family: "Segoe UI", system-ui, Arial, sans-serif;
+  background:var(--bg);
+  color:#111827;
 }
-.logo{
-  font-size:32px;
-  font-weight:bold;
-  color:#1565c0;
-  text-align:center;
-  margin:20px 0;
-}
-.logo span{color:#c62828}
-section{
-  background:#fff;
-  margin:20px auto;
+
+header{
+  background:var(--card);
   padding:20px;
-  max-width:900px;
-  border-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
+  text-align:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
 }
+
+header h1{
+  margin:0;
+  color:var(--primary);
+  font-size:28px;
+}
+header h1 span{color:var(--accent)}
+header p{margin:5px 0 0;font-size:14px;color:#475569}
+
+section{
+  max-width:1000px;
+  margin:30px auto;
+  background:var(--card);
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
 .hidden{display:none}
-input,textarea{
+
+h2{
+  margin-top:0;
+  color:var(--primary);
+}
+
+input, textarea{
   width:100%;
-  padding:8px;
-  margin:6px 0;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #cbd5f5;
+  font-size:15px;
 }
+
 button{
-  background:#1565c0;
+  background:var(--primary);
   color:#fff;
-  padding:10px 15px;
   border:none;
-  border-radius:4px;
+  padding:12px 18px;
+  border-radius:8px;
+  font-size:15px;
   cursor:pointer;
+  margin-top:10px;
 }
-button:hover{background:#0d47a1}
+button.secondary{
+  background:#475569;
+}
+button:hover{opacity:.9}
+
+/* DASHBOARD */
+.nav{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:15px;
+}
 
 /* ID CARD */
 .id-card{
-  width:320px;
-  border:2px solid #1565c0;
-  padding:15px;
-  text-align:center;
+  width:340px;
+  margin:auto;
+  border-radius:16px;
+  padding:20px;
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
+  color:#fff;
 }
-.back-code{
+.id-card h3{margin:0 0 10px}
+.id-card .box{
+  background:#fff;
+  color:#111;
+  border-radius:8px;
+  padding:10px;
   margin-top:10px;
-  padding:8px;
-  border:1px dashed #000;
-  font-size:12px;
+  font-size:14px;
 }
 .sign{
-  margin-top:20px;
-  border-top:1px solid #000;
+  margin-top:25px;
+  border-top:1px solid #fff;
   font-size:12px;
+  padding-top:5px;
 }
 
 /* PRINT */
@@ -71,7 +118,7 @@ button:hover{background:#0d47a1}
   }
   .print-id,.print-form{
     position:absolute;
-    top:0;left:0;width:100%;
+    inset:0;
   }
 }
 </style>
@@ -79,86 +126,105 @@ button:hover{background:#0d47a1}
 
 <body>
 
-<div class="logo">CAF<span>®</span> Community Awareness Forum</div>
+<header>
+  <h1>CAF<span>®</span> Community Awareness Forum</h1>
+  <p>Promoting awareness, unity & development</p>
+</header>
 
 <!-- LOGIN -->
 <section id="login">
-<h3>Login</h3>
+<h2>Member Login</h2>
 <input id="luser" placeholder="Username">
 <input id="lpass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
-<p><small>Admin: cafreg / caf2025</small></p>
+<p style="font-size:13px;color:#64748b">Admin: cafreg / caf2025</p>
 </section>
 
 <!-- DASHBOARD -->
 <section id="dashboard" class="hidden">
-<h3>Dashboard</h3>
-<button onclick="show('register')">Register</button>
+<h2>Dashboard</h2>
+<div class="nav">
+<button onclick="show('about')">About CAF</button>
+<button onclick="show('projects')">Forum Projects</button>
+<button onclick="show('register')">Registration Form</button>
 <button onclick="show('idcard')">My ID Card</button>
-<button onclick="show('projects')">Projects</button>
 <button onclick="show('attendance')">Attendance</button>
-<button onclick="showMembers()">Members</button>
+<button onclick="showMembers()">Members List</button>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="hidden">
+<h2>About the Forum</h2>
+<p>
+Community Awareness Forum (CAF) is a civic platform committed to
+community development, public sensitization, youth engagement,
+and advocacy for positive social change.
+</p>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="hidden">
+<h2>Forum Projects</h2>
+<textarea id="proj" rows="6" readonly>
+• Community sensitization campaigns
+• Youth engagement programs
+• Advocacy & outreach initiatives
+</textarea>
 </section>
 
 <!-- REGISTRATION -->
 <section id="register" class="hidden print-form">
-<h3>Membership Registration</h3>
+<h2>Membership Registration</h2>
 
 <form action="mailto:communityawarenessforum2025@gmail.com" method="post" enctype="text/plain">
-<input required placeholder="Full Name">
-<input required placeholder="Phone Number">
-<input required placeholder="Email">
-<input required placeholder="Address">
-<input required placeholder="Occupation">
+<input placeholder="Full Name" required>
+<input placeholder="Phone Number" required>
+<input placeholder="Email" required>
+<input placeholder="Address" required>
+<input placeholder="Occupation" required>
 
-<p><b>Chairman Signature:</b></p>
-<div class="sign">Chairman</div>
+<div class="sign" style="color:#000">Chairman Signature</div>
 
 <button type="submit">Submit Registration</button>
-<button type="button" onclick="window.print()">Print Form</button>
+<button type="button" class="secondary" onclick="window.print()">Print Form</button>
 </form>
 </section>
 
 <!-- ID CARD -->
 <section id="idcard" class="hidden print-id">
-<h3>ID Card</h3>
+<h2>Member ID Card</h2>
+
 <div class="id-card">
-<p><b>Community Awareness Forum</b></p>
+<h3>Community Awareness Forum</h3>
 <p>Member Name</p>
 <p>ID: CAF-2025</p>
 
-<div class="back-code">
-CAF VERIFIED<br>
-Code: CAF-SEC-2025
+<div class="box">
+Verification Code<br>
+<strong>CAF-SEC-2025</strong>
 </div>
 
 <div class="sign">Chairman Signature</div>
 </div>
+
 <button onclick="window.print()">Print ID Card</button>
 </section>
 
 <!-- ATTENDANCE -->
 <section id="attendance" class="hidden">
-<h3>Meeting Attendance</h3>
+<h2>Meeting Attendance</h2>
 <input placeholder="Meeting Title">
 <input type="date">
 <input type="time">
-<div style="height:50px;border:1px solid #000;margin-top:10px">Signature</div>
+<div style="height:50px;border:1px dashed #94a3b8;margin-top:10px">Signature</div>
 <button onclick="window.print()">Print Attendance</button>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="hidden">
-<h3>Forum Projects</h3>
-<textarea id="projText" rows="6" readonly>
-Community sensitization programs, advocacy meetings, and youth engagement activities.
-</textarea>
 </section>
 
 <!-- MEMBERS -->
 <section id="members" class="hidden">
-<h3>Members List</h3>
-<input id="code" placeholder="Access Code">
+<h2>Members List</h2>
+<input id="code" placeholder="Enter access code">
 <button onclick="unlock()">Unlock</button>
 <div id="mlist" class="hidden">
 <p>Member data visible</p>
@@ -169,13 +235,12 @@ Community sensitization programs, advocacy meetings, and youth engagement activi
 let isAdmin=false;
 
 function login(){
-  let u=luser.value,p=lpass.value;
-  if(u==="cafreg" && p==="caf2025"){isAdmin=true}
-  document.getElementById("login").classList.add("hidden");
-  dashboard.classList.remove("hidden");
-  if(isAdmin){
-    document.getElementById("projText").removeAttribute("readonly");
+  if(luser.value==="cafreg" && lpass.value==="caf2025"){
+    isAdmin=true;
+    proj.removeAttribute("readonly");
   }
+  login.classList.add("hidden");
+  dashboard.classList.remove("hidden");
 }
 
 function show(id){
@@ -189,7 +254,7 @@ function showMembers(){show("members")}
 function unlock(){
   if(code.value==="caf1234"){
     mlist.classList.remove("hidden");
-  }else alert("Wrong code");
+  }else alert("Wrong access code");
 }
 </script>
 
