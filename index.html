@@ -11,7 +11,7 @@
 *{box-sizing:border-box;}
 body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--black);}
 header{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;text-align:center;padding:25px 10px;}
-header h1{margin:0;font-size:28px;font-weight:bold;}
+header h1{margin:0;font-size:28px; font-weight:bold;}
 header p{margin:5px 0 0;font-size:14px;}
 section{max-width:1100px;margin:20px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.08);}
 .hidden{display:none;}
@@ -41,7 +41,6 @@ th, td{padding:8px;text-align:center;}
 </style>
 </head>
 <body>
-
 <header>
 <h1>COMMUNITY AWARENESS FORUM</h1>
 <p>Building informed, united and empowered communities (Nguru Branch)</p>
@@ -85,7 +84,7 @@ th, td{padding:8px;text-align:center;}
 <button onclick="show('idcard')">My ID Card</button>
 <button onclick="show('projects')">Forum Projects</button>
 <button onclick="show('attendance')">Attendance</button>
-<button onclick="show('pending')">Pending Approvals</button>
+<button onclick="show('members')">Members List</button>
 <button onclick="show('passwordChange')">Change Password</button>
 </div>
 <footer>All rights reserved &copy; CAF 2025</footer>
@@ -113,7 +112,7 @@ th, td{padding:8px;text-align:center;}
 <span>Chairman Signature</span>
 <span>Secretary Signature</span>
 </div>
-<button onclick="submitRegistration()">Submit Registration (Pending Admin Approval)</button>
+<button onclick="submitRegistration()">Submit Registration</button>
 </form>
 </section>
 
@@ -135,11 +134,11 @@ th, td{padding:8px;text-align:center;}
 <button onclick="printID()">Print ID Card</button>
 </section>
 
-<!-- PENDING APPROVALS -->
-<section id="pending" class="hidden">
-<h2>Pending Member Approvals</h2>
-<table id="pendingTable">
-<tr><th>Full Name</th><th>Email</th><th>Approve</th></tr>
+<!-- MEMBERS LIST -->
+<section id="members" class="hidden">
+<h2>Members List</h2>
+<table id="memberTable">
+<tr><th>Full Name</th><th>Email</th><th>Remove</th></tr>
 </table>
 </section>
 
@@ -171,39 +170,35 @@ th, td{padding:8px;text-align:center;}
 <button onclick="changePassword()">Change Password</button>
 </section>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
-let pendingMembers=[];
-let approvedMembers=[];
+let members=[];
 let memberCount=0;
 let currentUser=null;
 let currentUserType=null;
 const adminCreds={username:'cafreg',password:'caf7353'};
 
-// LOGIN
 function login(){
-  const username=document.getElementById('luser').value;
+  const username=document.getElementById('luser').value.trim();
   const password=document.getElementById('lpass').value;
   const type=document.getElementById('loginType').value;
+
   if(type==='admin'){
     if(username===adminCreds.username && password===adminCreds.password){
-      currentUser=username; currentUserType='admin'; showDashboard();
+      currentUser=username; currentUserType='admin'; showDashboard(); updateMemberTable();
     } else { alert('Invalid admin credentials'); return; }
   } else {
-    const member=approvedMembers.find(m=>m.email===username && m.password===password);
+    const member=members.find(m=>m.email===username && m.password===password);
     if(member){ currentUser=username; currentUserType='member'; generateIDCard(member); showDashboard(); }
-    else alert('Invalid member credentials or not approved yet');
+    else alert('Invalid member credentials');
   }
 }
 
-// LOGOUT
 function logout(){
   currentUser=null; currentUserType=null;
   document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
   document.getElementById('login').classList.remove('hidden');
 }
 
-// SHOW SECTION
 function showDashboard(){
   document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
   document.getElementById('dashboard').classList.remove('hidden');
@@ -216,7 +211,6 @@ function show(id){
   document.getElementById(id).classList.remove('hidden');
 }
 
-// REGISTRATION
 function submitRegistration(){
   let member={
     fullname:document.getElementById('fullname').value,
@@ -228,39 +222,15 @@ function submitRegistration(){
     kinPhone:document.getElementById('kinPhone').value,
     passport:document.getElementById('passport').files[0],
     logo:document.getElementById('logo').files[0],
-    password:'caf1234'
+    password:'caf1234',
+    cafID:'CAF-2025-'+String(++memberCount).padStart(3,'0')
   };
-  pendingMembers.push(member);
-  alert('Registration submitted! Waiting for admin approval.');
+  members.push(member);
+  alert('Registration successful! Use your email and password caf1234 to login.');
   document.getElementById('regForm').reset();
-  updatePendingTable();
+  updateMemberTable();
 }
 
-// PENDING APPROVALS
-function updatePendingTable(){
-  const table=document.getElementById('pendingTable');
-  table.innerHTML='<tr><th>Full Name</th><th>Email</th><th>Approve</th></tr>';
-  pendingMembers.forEach((m,i)=>{
-    let row=table.insertRow();
-    row.insertCell(0).innerText=m.fullname;
-    row.insertCell(1).innerText=m.email;
-    let btn=document.createElement('button');
-    btn.innerText='Approve';
-    btn.onclick=()=>approveMember(i);
-    row.insertCell(2).appendChild(btn);
-  });
-}
-
-function approveMember(index){
-  memberCount++;
-  let member=pendingMembers.splice(index,1)[0];
-  member.cafID='CAF-2025-'+String(memberCount).padStart(3,'0');
-  approvedMembers.push(member);
-  alert('Member approved! Username: '+member.email+' Password: caf1234');
-  updatePendingTable();
-}
-
-// ID CARD GENERATION
 function generateIDCard(member){
   if(member.passport){
     let reader=new FileReader();
@@ -276,10 +246,8 @@ function generateIDCard(member){
   document.getElementById('idCAFID').innerText=member.cafID;
 }
 
-// PRINT ID CARD
-function printID(){window.print();}
+function printID(){ window.print(); }
 
-// GALLERY UPLOAD
 function addGalleryImages(){
   let files=document.getElementById('galleryUpload').files;
   let gallery=document.getElementById('gallery');
@@ -297,7 +265,6 @@ function addGalleryImages(){
   }
 }
 
-// THEME CHANGE
 function changeTheme(){
   let theme=document.getElementById('themeSelector').value;
   switch(theme){
@@ -305,24 +272,45 @@ function changeTheme(){
     case 'black': document.body.style.background='#111'; document.body.style.color='#fff'; break;
     case 'yellow': document.body.style.background='#fef9c3'; document.body.style.color='#111'; break;
     case 'orange': document.body.style.background='#ffedd5'; document.body.style.color='#111'; break;
-    default: document.body.style.background='var(--bg)'; document.body.style.color='var(--black)';
+    default: document.body.style.background='#f3f4f6'; document.body.style.color='#111';
   }
 }
 
-// PASSWORD CHANGE
 function changePassword(){
   const oldPass=document.getElementById('oldPass').value;
   const newPass=document.getElementById('newPass').value;
   if(currentUserType==='admin'){
-    if(oldPass===adminCreds.password){ adminCreds.password=newPass; alert('Admin password changed');}
+    if(oldPass===adminCreds.password){ adminCreds.password=newPass; alert('Admin password changed'); }
     else alert('Incorrect current password');
   } else {
-    let member=approvedMembers.find(m=>m.email===currentUser);
-    if(member.password===oldPass){ member.password=newPass; alert('Password changed');}
+    let member=members.find(m=>m.email===currentUser);
+    if(member.password===oldPass){ member.password=newPass; alert('Password changed'); }
     else alert('Incorrect current password');
   }
 }
-</script>
 
+function updateMemberTable(){
+  const table=document.getElementById('memberTable');
+  table.innerHTML='<tr><th>Full Name</th><th>Email</th><th>Remove</th></tr>';
+  if(currentUserType!=='admin') return;
+  members.forEach((m,i)=>{
+    let row=table.insertRow();
+    row.insertCell(0).innerText=m.fullname;
+    row.insertCell(1).innerText=m.email;
+    let btn=document.createElement('button');
+    btn.innerText='Remove';
+    btn.onclick=()=>removeMember(i);
+    row.insertCell(2).appendChild(btn);
+  });
+}
+
+function removeMember(index){
+  if(confirm('Are you sure you want to remove this member?')){
+    members.splice(index,1);
+    updateMemberTable();
+    alert('Member removed.');
+  }
+}
+</script>
 </body>
 </html>
