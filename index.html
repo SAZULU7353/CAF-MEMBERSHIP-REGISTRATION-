@@ -11,7 +11,7 @@
 *{box-sizing:border-box;}
 body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--black);}
 header{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;text-align:center;padding:25px 10px;}
-header h1{margin:0;font-size:28px; font-weight:bold;}
+header h1{margin:0;font-size:28px;font-weight:bold;}
 header p{margin:5px 0 0;font-size:14px;}
 section{max-width:1100px;margin:20px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.08);}
 .hidden{display:none;}
@@ -23,11 +23,10 @@ button.secondary{background:var(--yellow);color:#000;}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
 .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;}
 .hero img{width:100%;border-radius:12px;min-height:220px;object-fit:cover;background:#e5e7eb;}
-.id-card{width:350px;margin:auto;padding:20px;border-radius:16px;background:linear-gradient(135deg,var(--red),var(--yellow));color:#111;position:relative;}
-.id-card img{width:80px;height:80px;border-radius:6px;margin:5px;}
-.id-card .logo{width:60px;height:60px;margin:5px;}
-.id-card .box{background:#fff;color:#000;padding:8px;border-radius:6px;margin-top:10px;font-size:13px;}
-.sign{margin-top:15px;border-top:1px solid #111;padding-top:5px;font-size:12px;display:flex;justify-content:space-between;}
+.id-card{width:360px;margin:auto;padding:20px;border-radius:12px;background:#fff;color:#000;border:2px solid #000;position:relative;font-size:14px;}
+.id-card img{width:90px;height:90px;border-radius:6px;margin:5px;border:1px solid #000;}
+.id-card .box{background:#f3f3f3;color:#000;padding:8px;border-radius:6px;margin-top:10px;font-size:13px;border:1px solid #000;}
+.sign{margin-top:15px;border-top:1px solid #000;padding-top:5px;font-size:12px;display:flex;justify-content:space-between;}
 .sign span{flex:1;text-align:center;}
 footer{text-align:center;margin-top:20px;font-size:13px;color:#64748b;}
 #login{display:flex;justify-content:center;align-items:center;min-height:60vh;}
@@ -38,6 +37,7 @@ footer{text-align:center;margin-top:20px;font-size:13px;color:#64748b;}
 table{width:100%;border-collapse:collapse;margin-top:10px;}
 table, th, td{border:1px solid #cbd5e1;}
 th, td{padding:8px;text-align:center;}
+.printable{border:2px solid #000;padding:10px;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -91,13 +91,10 @@ th, td{padding:8px;text-align:center;}
 </section>
 
 <!-- REGISTRATION -->
-<section id="register" class="hidden print-form">
-<h2>Membership Registration Form</h2>
+<section id="register" class="hidden printable">
+<h2>COMMUNITY AWARENESS FORUM</h2>
+<h3>Membership Registration Form</h3>
 <form id="regForm" onsubmit="return false;">
-<div style="display:flex;gap:10px;">
-<input type="file" id="passport" accept="image/*">
-<input type="file" id="logo" accept="image/*">
-</div>
 <input placeholder="Full Name" id="fullname" required>
 <input placeholder="Phone Number" id="phone" required>
 <input placeholder="Email" id="email" required>
@@ -105,6 +102,7 @@ th, td{padding:8px;text-align:center;}
 <input placeholder="Position" id="position" required>
 <input placeholder="Next of Kin Full Name" id="kinName" required>
 <input placeholder="Next of Kin Phone Number" id="kinPhone" required>
+<input type="file" id="passport" accept="image/*">
 <div>
 <input type="checkbox" id="agree" required> I agree with the Terms, Constitution and Policies of CAF
 </div>
@@ -112,23 +110,27 @@ th, td{padding:8px;text-align:center;}
 <span>Chairman Signature</span>
 <span>Secretary Signature</span>
 </div>
+<div class="box">CAF ID: <span id="regCAFID"></span></div>
 <button onclick="submitRegistration()">Submit Registration</button>
 </form>
 </section>
 
 <!-- ID CARD -->
-<section id="idcard" class="hidden print-id">
+<section id="idcard" class="hidden printable">
 <h2>Member ID Card</h2>
 <div class="id-card">
-<div style="display:flex;justify-content:space-between;align-items:center;">
+<p style="font-weight:bold;text-align:center;">COMMUNITY AWARENESS FORUM</p>
+<div style="display:flex;justify-content:center;align-items:center;gap:10px;">
 <img id="idPassport" src="" alt="Passport Photo">
-<img id="idLogo" src="" alt="Forum Logo">
 </div>
 <p id="idName">Full Name (CAF)</p>
 <div class="box">CAF ID: <span id="idCAFID">CAF-2025-001</span></div>
+<div class="box">Email: <span id="idEmail"></span></div>
+<div class="box">Phone: <span id="idPhone"></span></div>
+<div class="box">Position: <span id="idPosition"></span></div>
 <div class="sign">
-<span>Chairman</span>
-<span>Member</span>
+<span>Chairman Signature</span>
+<span>Member Signature</span>
 </div>
 </div>
 <button onclick="printID()">Print ID Card</button>
@@ -153,13 +155,12 @@ th, td{padding:8px;text-align:center;}
 </section>
 
 <!-- ATTENDANCE -->
-<section id="attendance" class="hidden">
+<section id="attendance" class="hidden printable">
 <h2>Meeting Attendance</h2>
-<input placeholder="Meeting Title">
-<input type="date">
-<input type="time">
-<div style="height:50px;border:1px dashed #000;margin-top:10px;">Signature</div>
-<button onclick="window.print()">Print Attendance</button>
+<input placeholder="Your Full Name" id="attName" required>
+<input type="date" id="attDate">
+<input type="time" id="attTime">
+<button onclick="printAttendance()">Print Attendance</button>
 </section>
 
 <!-- PASSWORD CHANGE -->
@@ -177,6 +178,7 @@ let currentUser=null;
 let currentUserType=null;
 const adminCreds={username:'cafreg',password:'caf7353'};
 
+// LOGIN
 function login(){
   const username=document.getElementById('luser').value.trim();
   const password=document.getElementById('lpass').value;
@@ -193,17 +195,18 @@ function login(){
   }
 }
 
+// LOGOUT
 function logout(){
   currentUser=null; currentUserType=null;
   document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
   document.getElementById('login').classList.remove('hidden');
 }
 
+// SHOW SECTION
 function showDashboard(){
   document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
   document.getElementById('dashboard').classList.remove('hidden');
 }
-
 function show(id){
   if(!currentUser){ alert('Please login first'); return; }
   document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
@@ -211,6 +214,7 @@ function show(id){
   document.getElementById(id).classList.remove('hidden');
 }
 
+// REGISTER MEMBER
 function submitRegistration(){
   let member={
     fullname:document.getElementById('fullname').value,
@@ -221,33 +225,32 @@ function submitRegistration(){
     kinName:document.getElementById('kinName').value,
     kinPhone:document.getElementById('kinPhone').value,
     passport:document.getElementById('passport').files[0],
-    logo:document.getElementById('logo').files[0],
     password:'caf1234',
     cafID:'CAF-2025-'+String(++memberCount).padStart(3,'0')
   };
   members.push(member);
-  alert('Registration successful! Use your email and password caf1234 to login.');
+  alert('Registration successful! Use email and password caf1234 to login.');
+  document.getElementById('regCAFID').innerText=member.cafID;
   document.getElementById('regForm').reset();
   updateMemberTable();
 }
 
+// ID CARD
 function generateIDCard(member){
   if(member.passport){
     let reader=new FileReader();
     reader.onload=e=>document.getElementById('idPassport').src=e.target.result;
     reader.readAsDataURL(member.passport);
   }
-  if(member.logo){
-    let reader=new FileReader();
-    reader.onload=e=>document.getElementById('idLogo').src=e.target.result;
-    reader.readAsDataURL(member.logo);
-  }
   document.getElementById('idName').innerText=member.fullname+' (CAF)';
   document.getElementById('idCAFID').innerText=member.cafID;
+  document.getElementById('idEmail').innerText=member.email;
+  document.getElementById('idPhone').innerText=member.phone;
+  document.getElementById('idPosition').innerText=member.position;
 }
-
 function printID(){ window.print(); }
 
+// GALLERY
 function addGalleryImages(){
   let files=document.getElementById('galleryUpload').files;
   let gallery=document.getElementById('gallery');
@@ -265,6 +268,7 @@ function addGalleryImages(){
   }
 }
 
+// THEME
 function changeTheme(){
   let theme=document.getElementById('themeSelector').value;
   switch(theme){
@@ -276,6 +280,7 @@ function changeTheme(){
   }
 }
 
+// PASSWORD CHANGE
 function changePassword(){
   const oldPass=document.getElementById('oldPass').value;
   const newPass=document.getElementById('newPass').value;
@@ -289,6 +294,7 @@ function changePassword(){
   }
 }
 
+// MEMBERS LIST
 function updateMemberTable(){
   const table=document.getElementById('memberTable');
   table.innerHTML='<tr><th>Full Name</th><th>Email</th><th>Remove</th></tr>';
@@ -304,12 +310,26 @@ function updateMemberTable(){
   });
 }
 
+// REMOVE MEMBER
 function removeMember(index){
   if(confirm('Are you sure you want to remove this member?')){
     members.splice(index,1);
     updateMemberTable();
     alert('Member removed.');
   }
+}
+
+// ATTENDANCE
+function printAttendance(){
+  if(currentUserType!=='admin'){
+    alert('Only admin can print attendance.');
+    return;
+  }
+  const name=document.getElementById('attName').value;
+  const date=document.getElementById('attDate').value;
+  const time=document.getElementById('attTime').value;
+  if(!name){ alert('Member must enter their name.'); return; }
+  window.print();
 }
 </script>
 </body>
