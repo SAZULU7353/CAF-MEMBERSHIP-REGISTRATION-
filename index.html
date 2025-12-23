@@ -17,6 +17,7 @@ section{max-width:1100px;margin:20px auto;background:var(--card);padding:20px;bo
 .hidden{display:none;}
 h2{color:var(--red);margin-top:0;}
 input,textarea,select{width:100%;padding:10px;margin:6px 0;border-radius:6px;border:1px solid #cbd5e1;font-size:14px;}
+textarea{resize:none;}
 button{padding:12px 18px;border:none;border-radius:8px;font-size:15px;cursor:pointer;color:#fff;background:var(--orange);margin-top:8px;}
 button:hover{opacity:.9;}
 button.secondary{background:var(--yellow);color:#000;}
@@ -38,6 +39,7 @@ table{width:100%;border-collapse:collapse;margin-top:10px;}
 table, th, td{border:1px solid #cbd5e1;}
 th, td{padding:8px;text-align:center;}
 .printable{border:2px solid #000;padding:10px;margin-top:10px;}
+textarea{height:80px;}
 </style>
 </head>
 <body>
@@ -74,7 +76,7 @@ th, td{padding:8px;text-align:center;}
 <div>
 <h2>Welcome to COMMUNITY AWARENESS FORUM</h2>
 <p>View community activities, upcoming projects, and engage with your fellow members.</p>
-<input type="file" id="galleryUpload" multiple onchange="addGalleryImages()">
+<input type="file" id="galleryUpload" multiple onchange="addGalleryImages()" class="hidden">
 </div>
 <div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;"></div>
 </div>
@@ -85,6 +87,8 @@ th, td{padding:8px;text-align:center;}
 <button onclick="show('projects')">Forum Projects</button>
 <button onclick="show('attendance')">Attendance</button>
 <button onclick="show('members')">Members List</button>
+<button onclick="show('about')">About CAF</button>
+<button onclick="show('contact')">Contact Us</button>
 <button onclick="show('passwordChange')">Change Password</button>
 </div>
 <footer>All rights reserved &copy; CAF 2025</footer>
@@ -111,6 +115,8 @@ th, td{padding:8px;text-align:center;}
 <span>Secretary Signature</span>
 </div>
 <div class="box">CAF ID: <span id="regCAFID"></span></div>
+<div class="box">Default Username: COMMUNITY</div>
+<div class="box">Default Password: caf1234</div>
 <button onclick="submitRegistration()">Submit Registration</button>
 </form>
 </section>
@@ -163,6 +169,21 @@ th, td{padding:8px;text-align:center;}
 <button onclick="printAttendance()">Print Attendance</button>
 </section>
 
+<!-- ABOUT CAF -->
+<section id="about" class="hidden printable">
+<h2>About COMMUNITY AWARENESS FORUM</h2>
+<p>COMMUNITY AWARENESS FORUM (CAF) is dedicated to building informed, united, and empowered communities. Our programs include youth engagement, community sensitization, advocacy initiatives, and leadership development. We aim to create an inclusive environment where all members can contribute and grow together.</p>
+</section>
+
+<!-- CONTACT US -->
+<section id="contact" class="hidden printable">
+<h2>Contact Us</h2>
+<p>Email: communityawarenessforum7353@gmail.com</p>
+<p>Phone: 08122280304</p>
+<textarea id="contactMessage" placeholder="Type your message here..."></textarea>
+<button onclick="submitContact()">Send Message</button>
+</section>
+
 <!-- PASSWORD CHANGE -->
 <section id="passwordChange" class="hidden">
 <h2>Change Password</h2>
@@ -186,10 +207,12 @@ function login(){
 
   if(type==='admin'){
     if(username===adminCreds.username && password===adminCreds.password){
-      currentUser=username; currentUserType='admin'; showDashboard(); updateMemberTable();
+      currentUser=username; currentUserType='admin'; showDashboard(); updateMemberTable(); enableGalleryUpload();
     } else { alert('Invalid admin credentials'); return; }
   } else {
-    const member=members.find(m=>m.email===username && m.password===password);
+    let member=null;
+    if(username.toUpperCase()==='COMMUNITY' && password==='caf1234'){ member={fullname:'Default Member',email:'community@caf.com',phone:'N/A',position:'Member',cafID:'CAF-2025-000'}; }
+    else member=members.find(m=>m.email===username && m.password===password);
     if(member){ currentUser=username; currentUserType='member'; generateIDCard(member); showDashboard(); }
     else alert('Invalid member credentials');
   }
@@ -252,9 +275,9 @@ function printID(){ window.print(); }
 
 // GALLERY
 function addGalleryImages(){
+  if(currentUserType!=='admin'){ alert('Only admin can add images'); return; }
   let files=document.getElementById('galleryUpload').files;
   let gallery=document.getElementById('gallery');
-  gallery.innerHTML='';
   for(let f of files){
     let reader=new FileReader();
     reader.onload=function(e){
@@ -266,6 +289,9 @@ function addGalleryImages(){
     }
     reader.readAsDataURL(f);
   }
+}
+function enableGalleryUpload(){
+  document.getElementById('galleryUpload').classList.remove('hidden');
 }
 
 // THEME
@@ -325,11 +351,15 @@ function printAttendance(){
     alert('Only admin can print attendance.');
     return;
   }
-  const name=document.getElementById('attName').value;
-  const date=document.getElementById('attDate').value;
-  const time=document.getElementById('attTime').value;
-  if(!name){ alert('Member must enter their name.'); return; }
   window.print();
+}
+
+// CONTACT FORM
+function submitContact(){
+  const msg=document.getElementById('contactMessage').value.trim();
+  if(!msg){ alert('Please enter a message'); return; }
+  alert('Message sent! Thank you for contacting us.');
+  document.getElementById('contactMessage').value='';
 }
 </script>
 </body>
