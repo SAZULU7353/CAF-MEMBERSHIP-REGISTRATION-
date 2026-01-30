@@ -2,112 +2,281 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CAF PRO - Community Awareness Forum</title>
+<title>CAF PRO – Registration Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 <style>
-:root{--main:#0b5394;--accent:#f1c232;--bg:#f4f6f8}
-*{box-sizing:border-box}
-body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
-header{background:var(--main);color:#fff;padding:20px;text-align:center}
-nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:10px}
-nav button{background:var(--main);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
-section{background:#fff;margin:15px;padding:20px;border-radius:12px}
-.hidden{display:none}
-input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
-.id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;margin:auto;text-align:center}
-.id-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+:root{
+  --main:#0b5394;
+  --accent:#f1c232;
+}
+
+/* GENERAL */
+body{
+  font-family:Segoe UI,Arial;
+  background:#f4f6f8;
+  margin:0;
+}
+
+/* WATERMARK */
+.watermark{
+  position:fixed;
+  top:35%;
+  left:10%;
+  font-size:120px;
+  color:rgba(11,83,148,0.08);
+  transform:rotate(-30deg);
+  z-index:0;
+  user-select:none;
+}
+
+/* FORM CONTAINER */
+.form-wrapper{
+  max-width:900px;
+  margin:20px auto;
+  background:#fff;
+  padding:25px;
+  border:3px solid var(--main);
+  border-radius:12px;
+  position:relative;
+  z-index:1;
+}
+
+/* HEADER */
+.header{
+  text-align:center;
+  border-bottom:3px solid var(--accent);
+  padding-bottom:10px;
+}
+
+.header h1{
+  margin:4px 0;
+  color:var(--main);
+  font-weight:800;
+}
+
+.header h3{
+  margin:2px 0;
+  font-weight:700;
+}
+
+.header p{
+  margin:2px 0;
+  font-size:14px;
+}
+
+/* PASSPORT BOX */
+.passport-box{
+  position:absolute;
+  top:30px;
+  right:30px;
+  width:120px;
+  height:140px;
+  border:2px solid #000;
+  text-align:center;
+  font-size:12px;
+  padding-top:50px;
+}
+
+/* SECTIONS */
+.section{
+  margin-top:18px;
+}
+
+.section h4{
+  background:var(--main);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:6px;
+  margin-bottom:10px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.line{
+  border-bottom:1px dotted #000;
+  padding:6px;
+  min-height:28px;
+}
+
+.full{
+  grid-column:1/3;
+}
+
+/* DECLARATION */
+.declaration{
+  margin-top:12px;
+  font-size:14px;
+}
+
+/* SIGNATURES */
+.signatures{
+  display:flex;
+  justify-content:space-between;
+  margin-top:50px;
+}
+
+.sign{
+  width:40%;
+  text-align:center;
+  font-weight:bold;
+}
+
+.sign-line{
+  border-top:2px solid #000;
+  margin-top:40px;
+}
+
+/* FORM INPUT PAGE */
+.input-box{
+  max-width:600px;
+  margin:40px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:10px;
+}
+
+input,select{
+  width:100%;
+  padding:8px;
+  margin:6px 0;
+}
+
+/* PRINT */
 @media print{
-body *{visibility:hidden}
-.printable,.printable *{visibility:visible}
-.printable{position:absolute;top:20px;left:0;right:0}
+  body *{visibility:hidden;}
+  .print-area, .print-area *{visibility:visible;}
+  .print-area{position:absolute;left:0;top:0;width:100%;}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
-<p><strong>Motto:</strong> Educate, Aware and Better Community</p>
-</header>
+<!-- WATERMARK -->
+<div class="watermark">CAF</div>
 
-<nav>
-<button onclick="show('home')">Home</button>
-<button onclick="show('register')">Register</button>
-<button onclick="show('login')">Login</button>
-<button onclick="show('id')">My ID</button>
-</nav>
+<!-- INPUT FORM -->
+<div class="input-box" id="inputForm">
+  <h2>CAF Registration</h2>
+  <input id="name" placeholder="Full Name">
+  <input id="age" placeholder="Age">
+  <select id="sex">
+    <option value="">Sex</option>
+    <option>Male</option>
+    <option>Female</option>
+  </select>
+  <input id="phone" placeholder="Phone Number">
+  <input id="email" placeholder="Email Address">
+  <input id="school" placeholder="School Attended">
+  <select id="marital">
+    <option value="">Marital Status</option>
+    <option>Single</option>
+    <option>Married</option>
+  </select>
 
-<section id="home">
-<h2>Welcome</h2>
-<p>Welcome to Community Awareness Forum.</p>
-</section>
+  <h3>Next of Kin</h3>
+  <input id="kinName" placeholder="Next of Kin Name">
+  <input id="kinRel" placeholder="Relationship">
+  <input id="kinPhone" placeholder="Next of Kin Phone">
+  <input id="kinAddress" placeholder="Next of Kin Address">
 
-<section id="register" class="hidden printable">
-<h2>Membership Registration</h2>
-<input id="rName" placeholder="Full Name">
-<input id="rEmail" placeholder="Email">
-<input type="password" id="rPass" placeholder="Password">
-<input type="file" id="rPhoto" accept="image/*">
-<button onclick="register()">Register</button>
-<button onclick="window.print()">Print</button>
-</section>
-
-<section id="login" class="hidden">
-<h2>Login</h2>
-<input id="lEmail" placeholder="Email">
-<input type="password" id="lPass" placeholder="Password">
-<button onclick="login()">Login</button>
-</section>
-
-<section id="id" class="hidden printable">
-<h2>CAF ID CARD</h2>
-<div class="id-card">
-<img id="idPhoto">
-<p><strong>Name:</strong> <span id="idName"></span></p>
-<p><strong>ID:</strong> <span id="idNo"></span></p>
-<div id="qr"></div>
+  <button onclick="generateForm()">Submit & Export PDF</button>
 </div>
-<button onclick="window.print()">Print ID</button>
-</section>
+
+<!-- PRINT AREA -->
+<div class="print-area">
+
+<div class="form-wrapper" id="printForm">
+
+  <div class="passport-box">
+    PASSPORT<br>PHOTO
+  </div>
+
+  <div class="header">
+    <h1><strong>COMMUNITY AWARENESS FORUM (CAF)</strong></h1>
+    <h3><strong>NGURU L.G BRANCH</strong></h3>
+    <p><strong>Motto:</strong> Educate, Aware and Better Community</p>
+    <p><strong>Address:</strong> Nguru Local Government Area, Yobe State</p>
+  </div>
+
+  <div class="section">
+    <h4>PERSONAL INFORMATION</h4>
+    <div class="grid">
+      <div class="line">Name: <span id="pName"></span></div>
+      <div class="line">Age: <span id="pAge"></span></div>
+
+      <div class="line">Sex: <span id="pSex"></span></div>
+      <div class="line">Phone: <span id="pPhone"></span></div>
+
+      <div class="line">Email: <span id="pEmail"></span></div>
+      <div class="line">Marital Status: <span id="pMarital"></span></div>
+
+      <div class="line full">School Attended: <span id="pSchool"></span></div>
+      <div class="line full"><strong>CAF ID NO:</strong> <span id="pID"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h4>NEXT OF KIN INFORMATION</h4>
+    <div class="grid">
+      <div class="line">Name: <span id="kName"></span></div>
+      <div class="line">Relationship: <span id="kRel"></span></div>
+
+      <div class="line">Phone: <span id="kPhone"></span></div>
+      <div class="line">Address: <span id="kAddress"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h4>DECLARATION</h4>
+    <div class="declaration">
+      ☐ I hereby agree to abide by the rules, policies, conditions and constitution of the
+      <strong>Community Awareness Forum (CAF)</strong>.
+    </div>
+  </div>
+
+  <div class="signatures">
+    <div class="sign">
+      <div class="sign-line">SEC. GEN. SIGN</div>
+    </div>
+
+    <div class="sign">
+      <div class="sign-line">CHAIRMAN SIGN</div>
+    </div>
+  </div>
+
+</div>
+</div>
 
 <script>
-let members = JSON.parse(localStorage.getItem("members")||"[]");
-let currentUser=null;
-
-function show(id){
-document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
+function generateID(){
+  return "CAF-NGR-" + new Date().getFullYear() + "-" + Math.floor(1000 + Math.random()*9000);
 }
 
-function register(){
-let name=rName.value,email=rEmail.value,pass=rPass.value,photo=rPhoto.files[0];
-if(!name||!email||!pass||!photo){alert("Fill all fields");return;}
-let reader=new FileReader();
-reader.onload=()=>{
-let id="CAF-"+Date.now();
-members.push({name,email,pass,id,photo:reader.result});
-localStorage.setItem("members",JSON.stringify(members));
-alert("Registration successful");
-show("login");
-}
-reader.readAsDataURL(photo);
-}
+function generateForm(){
+  document.getElementById("pName").innerText = name.value;
+  document.getElementById("pAge").innerText = age.value;
+  document.getElementById("pSex").innerText = sex.value;
+  document.getElementById("pPhone").innerText = phone.value;
+  document.getElementById("pEmail").innerText = email.value;
+  document.getElementById("pSchool").innerText = school.value;
+  document.getElementById("pMarital").innerText = marital.value;
+  document.getElementById("pID").innerText = generateID();
 
-function login(){
-let email=lEmail.value,pass=lPass.value;
-let user=members.find(u=>u.email===email&&u.pass===pass);
-if(!user){alert("Invalid login");return;}
-currentUser=user;
-show("id");
-idName.innerText=user.name;
-idNo.innerText=user.id;
-idPhoto.src=user.photo;
-qr.innerHTML="";
-new QRCode(qr,{text:user.id,width:100,height:100});
+  document.getElementById("kName").innerText = kinName.value;
+  document.getElementById("kRel").innerText = kinRel.value;
+  document.getElementById("kPhone").innerText = kinPhone.value;
+  document.getElementById("kAddress").innerText = kinAddress.value;
+
+  document.getElementById("inputForm").style.display="none";
+
+  setTimeout(()=>window.print(),500);
 }
 </script>
 
