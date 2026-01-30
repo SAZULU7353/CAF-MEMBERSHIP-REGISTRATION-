@@ -1,214 +1,115 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Awareness Forum (CAF)</title>
-    <style>
-        :root {
-            --primary-color: #1565c0;
-            --secondary-color: #ef6c00;
-            --danger-color: #c62828;
-            --success-color: #2e7d32;
-            --light-bg: #f9f9f9;
-            --dark-text: #333;
-        }
+<meta charset="UTF-8">
+<title>CAF PRO - Community Awareness Forum</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--light-bg);
-            color: var(--dark-text);
-        }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            background: #e3f2fd;
-            padding: 0.5rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        main {
-            padding: 2rem;
-            max-width: 1000px;
-            margin: auto;
-        }
-
-        h2 {
-            color: var(--primary-color);
-        }
-
-        form {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
-
-        form input, form select, form textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin: 0.5rem 0 1rem 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        form button {
-            padding: 0.7rem 1.2rem;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .pending-approval {
-            background: #fff3e0;
-            border-left: 5px solid var(--secondary-color);
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .approved {
-            background: #e8f5e9;
-            border-left: 5px solid var(--success-color);
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-        }
-
-        .id-card {
-            border: 1px solid #ccc;
-            padding: 1rem;
-            width: 250px;
-            text-align: center;
-            margin: 1rem 0;
-            border-radius: 10px;
-            background: white;
-        }
-
-        .contact-info {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .terms {
-            margin-bottom: 1rem;
-        }
-    </style>
+<style>
+:root{--main:#0b5394;--accent:#f1c232;--bg:#f4f6f8}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
+header{background:var(--main);color:#fff;padding:20px;text-align:center}
+nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:10px}
+nav button{background:var(--main);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
+section{background:#fff;margin:15px;padding:20px;border-radius:12px}
+.hidden{display:none}
+input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
+.id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;margin:auto;text-align:center}
+.id-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+@media print{
+body *{visibility:hidden}
+.printable,.printable *{visibility:visible}
+.printable{position:absolute;top:20px;left:0;right:0}
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <h1>Community Awareness Forum (CAF)</h1>
-    </header>
 
-    <nav>
-        <a href="#register">Register</a>
-        <a href="#login">Login</a>
-        <a href="#pending">Pending Approval</a>
-        <a href="#contact">Contact</a>
-    </nav>
+<header>
+<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
+<p><strong>Motto:</strong> Educate, Aware and Better Community</p>
+</header>
 
-    <main>
-        <!-- Registration Form -->
-        <section id="register">
-            <h2>Member Registration</h2>
-            <form>
-                <label for="fullname">Full Name:</label>
-                <input type="text" id="fullname" name="fullname" required>
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('register')">Register</button>
+<button onclick="show('login')">Login</button>
+<button onclick="show('id')">My ID</button>
+</nav>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+<section id="home">
+<h2>Welcome</h2>
+<p>Welcome to Community Awareness Forum.</p>
+</section>
 
-                <label for="phone">Phone Number:</label>
-                <input type="tel" id="phone" name="phone" required>
+<section id="register" class="hidden printable">
+<h2>Membership Registration</h2>
+<input id="rName" placeholder="Full Name">
+<input id="rEmail" placeholder="Email">
+<input type="password" id="rPass" placeholder="Password">
+<input type="file" id="rPhoto" accept="image/*">
+<button onclick="register()">Register</button>
+<button onclick="window.print()">Print</button>
+</section>
 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+<section id="login" class="hidden">
+<h2>Login</h2>
+<input id="lEmail" placeholder="Email">
+<input type="password" id="lPass" placeholder="Password">
+<button onclick="login()">Login</button>
+</section>
 
-                <label for="agreement" class="terms">
-                    <input type="checkbox" id="agreement" required> I agree to the <a href="#terms">terms and policies</a>
-                </label>
+<section id="id" class="hidden printable">
+<h2>CAF ID CARD</h2>
+<div class="id-card">
+<img id="idPhoto">
+<p><strong>Name:</strong> <span id="idName"></span></p>
+<p><strong>ID:</strong> <span id="idNo"></span></p>
+<div id="qr"></div>
+</div>
+<button onclick="window.print()">Print ID</button>
+</section>
 
-                <button type="submit">Register</button>
-            </form>
-        </section>
+<script>
+let members = JSON.parse(localStorage.getItem("members")||"[]");
+let currentUser=null;
 
-        <!-- Login Form -->
-        <section id="login">
-            <h2>Member Login</h2>
-            <form>
-                <label for="login-email">Email:</label>
-                <input type="email" id="login-email" name="login-email" required>
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
+}
 
-                <label for="login-password">Password:</label>
-                <input type="password" id="login-password" name="login-password" required>
+function register(){
+let name=rName.value,email=rEmail.value,pass=rPass.value,photo=rPhoto.files[0];
+if(!name||!email||!pass||!photo){alert("Fill all fields");return;}
+let reader=new FileReader();
+reader.onload=()=>{
+let id="CAF-"+Date.now();
+members.push({name,email,pass,id,photo:reader.result});
+localStorage.setItem("members",JSON.stringify(members));
+alert("Registration successful");
+show("login");
+}
+reader.readAsDataURL(photo);
+}
 
-                <button type="submit">Login</button>
-            </form>
-        </section>
+function login(){
+let email=lEmail.value,pass=lPass.value;
+let user=members.find(u=>u.email===email&&u.pass===pass);
+if(!user){alert("Invalid login");return;}
+currentUser=user;
+show("id");
+idName.innerText=user.name;
+idNo.innerText=user.id;
+idPhoto.src=user.photo;
+qr.innerHTML="";
+new QRCode(qr,{text:user.id,width:100,height:100});
+}
+</script>
 
-        <!-- Pending Approval Section -->
-        <section id="pending">
-            <h2>Pending Member Approvals</h2>
-            <div class="pending-approval">
-                <p><strong>John Doe</strong> - Waiting for admin approval</p>
-            </div>
-            <div class="pending-approval">
-                <p><strong>Jane Smith</strong> - Waiting for admin approval</p>
-            </div>
-        </section>
-
-        <!-- Approved Members Section -->
-        <section id="approved">
-            <h2>Approved Members</h2>
-            <div class="approved">
-                <p><strong>Mary Johnson</strong></p>
-                <div class="id-card">
-                    <h3>CAF Member ID</h3>
-                    <p>Name: Mary Johnson</p>
-                    <p>ID: CAF2025-001</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <div class="contact-info">
-                <p>Email: <a href="mailto:communityawarenessforum1234@gmail.com">communityawarenessforum1234@gmail.com</a></p>
-                <p>Phone: 08122280304</p>
-                <p>All rights reserved &copy; 2025 Community Awareness Forum</p>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>Community Awareness Forum &copy; 2025</p>
-    </footer>
 </body>
 </html>
