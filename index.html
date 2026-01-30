@@ -14,26 +14,26 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
 header{background:var(--main);color:#fff;padding:20px;text-align:center}
-header img{height:60px}
-nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:15px;padding:10px}
-nav button{border:none;background:var(--main);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer}
+header img{height:70px}
+nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:10px}
+nav button{background:var(--main);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
 section{background:#fff;margin:15px;padding:20px;border-radius:12px}
 h2{color:var(--main)}
 input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
 button{background:var(--main);color:#fff;border:none;border-radius:6px}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #ccc;padding:8px}
 .hidden{display:none}
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ccc;padding:8px}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
 .gallery div{background:#ddd;height:100px;border-radius:10px;display:flex;align-items:center;justify-content:center}
 .id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;text-align:center;margin:auto}
-.id-card img{width:80px;height:80px;border-radius:50%;object-fit:cover}
+.id-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}
 footer{background:#111;color:#fff;text-align:center;padding:15px}
 
 @media print{
   body *{visibility:hidden}
-  .id-card,.id-card *{visibility:visible}
-  .id-card{position:absolute;top:20px;left:0;right:0}
+  .printable,.printable *{visibility:visible}
+  .printable{position:absolute;top:20px;left:0;right:0}
 }
 </style>
 </head>
@@ -41,9 +41,9 @@ footer{background:#111;color:#fff;text-align:center;padding:15px}
 <body>
 
 <header>
-<img src="" alt="CAF LOGO (add logo)">
+<img src="" alt="CAF LOGO HERE">
 <h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
-<p><em>Building awareness • Strengthening community</em></p>
+<p><strong>Motto:</strong> Educate, Aware and Better Community</p>
 </header>
 
 <nav>
@@ -56,58 +56,51 @@ footer{background:#111;color:#fff;text-align:center;padding:15px}
 <!-- HOME -->
 <section id="home">
 <h2>Welcome Message</h2>
-<p><strong>Admin:</strong> Welcome to the Community Awareness Forum (CAF). Together, we promote peace, education, and social responsibility.</p>
+<p><strong>Admin:</strong> Welcome to CAF. Together we educate, create awareness and build a better community.</p>
 
 <h2>Mission</h2>
-<p>To educate, empower, and unite communities for positive social development.</p>
+<p>To educate and raise awareness that strengthens communities socially and morally.</p>
 
 <h2>Vision</h2>
-<p>A responsible, informed, and peaceful society.</p>
+<p>A peaceful, informed and progressive community.</p>
 </section>
 
 <!-- REGISTER -->
-<section id="register" class="hidden">
+<section id="register" class="hidden printable">
 <h2>Membership Registration</h2>
+
 <input id="rName" placeholder="Full Name">
-<input id="rEmail" placeholder="Username">
+<input id="rEmail" placeholder="Email Address">
 <input id="rPhone" placeholder="Phone Number">
 <select id="rGender">
-<option value="">Gender</option>
-<option>Male</option>
-<option>Female</option>
+  <option value="">Gender</option>
+  <option>Male</option>
+  <option>Female</option>
 </select>
 <input type="file" id="rPhoto" accept="image/*">
-<input type="password" id="rPass" placeholder="Password">
+<input type="password" id="rPass" placeholder="Create Password">
+
 <button onclick="register()">Submit Registration</button>
+<button onclick="window.print()">Print Registration Form</button>
 </section>
 
 <!-- LOGIN -->
 <section id="login" class="hidden">
 <h2>Login</h2>
-<input id="lUser" placeholder="Username">
+<input id="lUser" placeholder="Email / Username">
 <input id="lPass" type="password" placeholder="Password">
 <button onclick="login()">Login</button>
 </section>
 
-<!-- ADMIN -->
-<section id="admin" class="hidden">
-<h2>Pending Members</h2>
-<table id="pendingTable"></table>
-
-<h2>Approved Members</h2>
-<table id="memberTable"></table>
-
-<button onclick="window.print()">Print Attendance</button>
-</section>
-
 <!-- ID CARD -->
-<section id="idSection" class="hidden">
+<section id="idSection" class="hidden printable">
 <h2>My ID Card</h2>
 <div class="id-card">
 <img id="idPhoto">
 <h3>CAF MEMBER</h3>
-<p id="idName"></p>
-<p id="idEmail"></p>
+<p><strong>Name:</strong> <span id="idName"></span></p>
+<p><strong>ID No:</strong> <span id="idNo"></span></p>
+<p><strong>Email:</strong> <span id="idEmail"></span></p>
 <p>Status: Active</p>
 </div>
 <button onclick="window.print()">Print ID Card</button>
@@ -117,10 +110,10 @@ footer{background:#111;color:#fff;text-align:center;padding:15px}
 <section>
 <h2>CAF Gallery</h2>
 <div class="gallery">
-<div>Event 1</div>
-<div>Event 2</div>
-<div>Event 3</div>
-<div>Event 4</div>
+<div>Outreach</div>
+<div>Workshop</div>
+<div>Meeting</div>
+<div>Community Event</div>
 </div>
 </section>
 
@@ -128,69 +121,74 @@ footer{background:#111;color:#fff;text-align:center;padding:15px}
 <section>
 <h2>Contact Us</h2>
 <textarea id="contactMessage" placeholder="Your message"></textarea>
-<button onclick="submitContact()">Send</button>
+<button onclick="submitContact()">Send Message</button>
 <p>Email: communityawarenessforum1234@gmail.com</p>
 <p>Phone: 08122280304</p>
 </section>
 
 <footer>
-<p>&copy; 2026 Community Awareness Forum. All rights reserved.</p>
+<p>&copy; 2026 Community Awareness Forum</p>
 </footer>
 
 <script>
-const admin={user:"caf1234",pass:"Caf1234"};
-let pending=[],members=[],current=null,role=null;
+/* ===== DATABASE (localStorage) ===== */
+const ADMIN={user:"caf1234",pass:"Caf1234"};
+let members=JSON.parse(localStorage.getItem("cafMembers"))||[];
+let current=null;
+
+function save(){localStorage.setItem("cafMembers",JSON.stringify(members));}
 
 function show(id){
 document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
 document.getElementById(id).classList.remove("hidden");
 }
 
+function generateID(){
+return "CAF-"+new Date().getFullYear()+"-"+String(members.length+1).padStart(3,"0");
+}
+
 function register(){
+if(!rName.value||!rEmail.value||!rPass.value||!rPhoto.files[0]){
+ alert("All fields required");return;
+}
 const reader=new FileReader();
-const file=rPhoto.files[0];
-reader.onload=()=>pending.push({
-name:rName.value,email:rEmail.value,phone:rPhone.value,
-gender:rGender.value,pass:rPass.value,photo:reader.result
+reader.onload=()=>{
+members.push({
+ id:generateID(),
+ name:rName.value,
+ email:rEmail.value,
+ phone:rPhone.value,
+ gender:rGender.value,
+ pass:rPass.value,
+ photo:reader.result
 });
-if(file) reader.readAsDataURL(file);
-alert("Registration submitted. Await approval.");
+save();
+alert("Registration successful. You can now login.");
+};
+reader.readAsDataURL(rPhoto.files[0]);
 }
 
 function login(){
-if(lUser.value===admin.user && lPass.value===admin.pass){
-role="admin";show("admin");updateTables();return;
+if(lUser.value===ADMIN.user && lPass.value===ADMIN.pass){
+ alert("Admin logged in");
+ return;
 }
 const m=members.find(x=>x.email===lUser.value && x.pass===lPass.value);
-if(m){current=m;show("idSection");
-idName.innerText=m.name;idEmail.innerText=m.email;idPhoto.src=m.photo;return;}
-alert("Invalid login");
+if(!m){alert("Invalid login");return;}
+current=m;
+show("idSection");
+idName.innerText=m.name;
+idEmail.innerText=m.email;
+idNo.innerText=m.id;
+idPhoto.src=m.photo;
 }
 
 function logout(){location.reload();}
 
-function updateTables(){
-pendingTable.innerHTML="<tr><th>Name</th><th>Approve</th></tr>";
-pending.forEach((m,i)=>{
-let r=pendingTable.insertRow();
-r.insertCell(0).innerText=m.name;
-let b=document.createElement("button");
-b.innerText="Approve";b.onclick=()=>{members.push(m);pending.splice(i,1);updateTables();}
-r.insertCell(1).appendChild(b);
-});
-memberTable.innerHTML="<tr><th>Name</th><th>Remove</th></tr>";
-members.forEach((m,i)=>{
-let r=memberTable.insertRow();
-r.insertCell(0).innerText=m.name;
-let b=document.createElement("button");
-b.innerText="Remove";b.onclick=()=>{members.splice(i,1);updateTables();}
-r.insertCell(1).appendChild(b);
-});
-}
-
 function submitContact(){
 if(!contactMessage.value.trim())return alert("Enter message");
-alert("Message sent successfully");contactMessage.value="";
+alert("Message sent successfully");
+contactMessage.value="";
 }
 </script>
 
