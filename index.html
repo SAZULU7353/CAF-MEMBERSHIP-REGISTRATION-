@@ -1,196 +1,214 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Community Awareness Forum (CAF)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Awareness Forum (CAF)</title>
+    <style>
+        :root {
+            --primary-color: #1565c0;
+            --secondary-color: #ef6c00;
+            --danger-color: #c62828;
+            --success-color: #2e7d32;
+            --light-bg: #f9f9f9;
+            --dark-text: #333;
+        }
 
-<style>
-:root{
-  --main:#0b5394;
-  --accent:#f1c232;
-  --bg:#f4f6f8;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
-header{background:var(--main);color:#fff;padding:20px;text-align:center}
-header img{height:70px}
-nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:10px}
-nav button{background:var(--main);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
-section{background:#fff;margin:15px;padding:20px;border-radius:12px}
-h2{color:var(--main)}
-input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
-button{background:var(--main);color:#fff;border:none;border-radius:6px}
-.hidden{display:none}
-table{width:100%;border-collapse:collapse}
-th,td{border:1px solid #ccc;padding:8px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.gallery div{background:#ddd;height:100px;border-radius:10px;display:flex;align-items:center;justify-content:center}
-.id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;text-align:center;margin:auto}
-.id-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}
-footer{background:#111;color:#fff;text-align:center;padding:15px}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--light-bg);
+            color: var(--dark-text);
+        }
 
-@media print{
-  body *{visibility:hidden}
-  .printable,.printable *{visibility:visible}
-  .printable{position:absolute;top:20px;left:0;right:0}
-}
-</style>
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            background: #e3f2fd;
+            padding: 0.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: var(--primary-color);
+        }
+
+        form {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 0.5rem 0 1rem 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        form button {
+            padding: 0.7rem 1.2rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .pending-approval {
+            background: #fff3e0;
+            border-left: 5px solid var(--secondary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .approved {
+            background: #e8f5e9;
+            border-left: 5px solid var(--success-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .id-card {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            width: 250px;
+            text-align: center;
+            margin: 1rem 0;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .terms {
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
-
 <body>
+    <header>
+        <h1>Community Awareness Forum (CAF)</h1>
+    </header>
 
-<header>
-<img src="" alt="CAF LOGO HERE">
-<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
-<p><strong>Motto:</strong> Educate, Aware and Better Community</p>
-</header>
+    <nav>
+        <a href="#register">Register</a>
+        <a href="#login">Login</a>
+        <a href="#pending">Pending Approval</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-<nav>
-<button onclick="show('home')">Home</button>
-<button onclick="show('register')">Register</button>
-<button onclick="show('login')">Login</button>
-<button onclick="logout()">Logout</button>
-</nav>
+    <main>
+        <!-- Registration Form -->
+        <section id="register">
+            <h2>Member Registration</h2>
+            <form>
+                <label for="fullname">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" required>
 
-<!-- HOME -->
-<section id="home">
-<h2>Welcome Message</h2>
-<p><strong>Admin:</strong> Welcome to CAF. Together we educate, create awareness and build a better community.</p>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
 
-<h2>Mission</h2>
-<p>To educate and raise awareness that strengthens communities socially and morally.</p>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
 
-<h2>Vision</h2>
-<p>A peaceful, informed and progressive community.</p>
-</section>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
 
-<!-- REGISTER -->
-<section id="register" class="hidden printable">
-<h2>Membership Registration</h2>
+                <label for="agreement" class="terms">
+                    <input type="checkbox" id="agreement" required> I agree to the <a href="#terms">terms and policies</a>
+                </label>
 
-<input id="rName" placeholder="Full Name">
-<input id="rEmail" placeholder="Email Address">
-<input id="rPhone" placeholder="Phone Number">
-<select id="rGender">
-  <option value="">Gender</option>
-  <option>Male</option>
-  <option>Female</option>
-</select>
-<input type="file" id="rPhoto" accept="image/*">
-<input type="password" id="rPass" placeholder="Create Password">
+                <button type="submit">Register</button>
+            </form>
+        </section>
 
-<button onclick="register()">Submit Registration</button>
-<button onclick="window.print()">Print Registration Form</button>
-</section>
+        <!-- Login Form -->
+        <section id="login">
+            <h2>Member Login</h2>
+            <form>
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="login-email" required>
 
-<!-- LOGIN -->
-<section id="login" class="hidden">
-<h2>Login</h2>
-<input id="lUser" placeholder="Email / Username">
-<input id="lPass" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-</section>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
 
-<!-- ID CARD -->
-<section id="idSection" class="hidden printable">
-<h2>My ID Card</h2>
-<div class="id-card">
-<img id="idPhoto">
-<h3>CAF MEMBER</h3>
-<p><strong>Name:</strong> <span id="idName"></span></p>
-<p><strong>ID No:</strong> <span id="idNo"></span></p>
-<p><strong>Email:</strong> <span id="idEmail"></span></p>
-<p>Status: Active</p>
-</div>
-<button onclick="window.print()">Print ID Card</button>
-</section>
+                <button type="submit">Login</button>
+            </form>
+        </section>
 
-<!-- GALLERY -->
-<section>
-<h2>CAF Gallery</h2>
-<div class="gallery">
-<div>Outreach</div>
-<div>Workshop</div>
-<div>Meeting</div>
-<div>Community Event</div>
-</div>
-</section>
+        <!-- Pending Approval Section -->
+        <section id="pending">
+            <h2>Pending Member Approvals</h2>
+            <div class="pending-approval">
+                <p><strong>John Doe</strong> - Waiting for admin approval</p>
+            </div>
+            <div class="pending-approval">
+                <p><strong>Jane Smith</strong> - Waiting for admin approval</p>
+            </div>
+        </section>
 
-<!-- CONTACT -->
-<section>
-<h2>Contact Us</h2>
-<textarea id="contactMessage" placeholder="Your message"></textarea>
-<button onclick="submitContact()">Send Message</button>
-<p>Email: communityawarenessforum1234@gmail.com</p>
-<p>Phone: 08122280304</p>
-</section>
+        <!-- Approved Members Section -->
+        <section id="approved">
+            <h2>Approved Members</h2>
+            <div class="approved">
+                <p><strong>Mary Johnson</strong></p>
+                <div class="id-card">
+                    <h3>CAF Member ID</h3>
+                    <p>Name: Mary Johnson</p>
+                    <p>ID: CAF2025-001</p>
+                </div>
+            </div>
+        </section>
 
-<footer>
-<p>&copy; 2026 Community Awareness Forum</p>
-</footer>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Us</h2>
+            <div class="contact-info">
+                <p>Email: <a href="mailto:communityawarenessforum1234@gmail.com">communityawarenessforum1234@gmail.com</a></p>
+                <p>Phone: 08122280304</p>
+                <p>All rights reserved &copy; 2025 Community Awareness Forum</p>
+            </div>
+        </section>
+    </main>
 
-<script>
-/* ===== DATABASE (localStorage) ===== */
-const ADMIN={user:"caf1234",pass:"Caf1234"};
-let members=JSON.parse(localStorage.getItem("cafMembers"))||[];
-let current=null;
-
-function save(){localStorage.setItem("cafMembers",JSON.stringify(members));}
-
-function show(id){
-document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-document.getElementById(id).classList.remove("hidden");
-}
-
-function generateID(){
-return "CAF-"+new Date().getFullYear()+"-"+String(members.length+1).padStart(3,"0");
-}
-
-function register(){
-if(!rName.value||!rEmail.value||!rPass.value||!rPhoto.files[0]){
- alert("All fields required");return;
-}
-const reader=new FileReader();
-reader.onload=()=>{
-members.push({
- id:generateID(),
- name:rName.value,
- email:rEmail.value,
- phone:rPhone.value,
- gender:rGender.value,
- pass:rPass.value,
- photo:reader.result
-});
-save();
-alert("Registration successful. You can now login.");
-};
-reader.readAsDataURL(rPhoto.files[0]);
-}
-
-function login(){
-if(lUser.value===ADMIN.user && lPass.value===ADMIN.pass){
- alert("Admin logged in");
- return;
-}
-const m=members.find(x=>x.email===lUser.value && x.pass===lPass.value);
-if(!m){alert("Invalid login");return;}
-current=m;
-show("idSection");
-idName.innerText=m.name;
-idEmail.innerText=m.email;
-idNo.innerText=m.id;
-idPhoto.src=m.photo;
-}
-
-function logout(){location.reload();}
-
-function submitContact(){
-if(!contactMessage.value.trim())return alert("Enter message");
-alert("Message sent successfully");
-contactMessage.value="";
-}
-</script>
-
+    <footer>
+        <p>Community Awareness Forum &copy; 2025</p>
+    </footer>
 </body>
 </html>
