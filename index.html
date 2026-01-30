@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>CAF PRO – Community Awareness Forum</title>
+<title>CAF PRO - Community Awareness Forum</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- QR Code library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- Font Awesome for social icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
@@ -15,300 +19,234 @@
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
-
-header{
-  background:var(--main);
-  color:#fff;
-  text-align:center;
-  padding:25px;
-}
-
-nav{
-  background:#fff;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  padding:10px;
-  flex-wrap:wrap;
-}
-
-nav button{
-  background:var(--main);
-  color:#fff;
-  border:none;
-  padding:8px 14px;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-section{
-  background:#fff;
-  margin:15px;
-  padding:25px;
-  border-radius:12px;
-}
-
+header{background:var(--main);color:#fff;padding:20px;text-align:center}
+header img{height:70px}
+nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:10px;padding:10px}
+nav button{background:var(--main);color:#fff;border:none;padding:8px 14px;border-radius:6px;cursor:pointer}
+section{background:#fff;margin:15px;padding:20px;border-radius:12px}
+h2{color:var(--main)}
+input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
+button{background:var(--main);color:#fff;border:none;border-radius:6px;cursor:pointer}
 .hidden{display:none}
-h2{color:var(--main);border-bottom:2px solid var(--accent);padding-bottom:5px}
-
-input,select{
-  width:100%;
-  padding:8px;
-  margin:6px 0;
-}
-
-.form-box{
-  border:2px solid var(--main);
-  padding:20px;
-  border-radius:10px;
-  background:#fafafa;
-}
-
-.form-header{
-  text-align:center;
-  border-bottom:3px solid var(--main);
-  margin-bottom:15px;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.id-display{
-  background:var(--accent);
-  padding:10px;
-  font-weight:bold;
-  text-align:center;
-}
-
-.signature{
-  display:flex;
-  justify-content:space-between;
-  margin-top:50px;
-}
-
-.signature div{
-  width:40%;
-  text-align:center;
-  border-top:2px solid #000;
-  font-weight:bold;
-}
-
-.id-card{
-  width:330px;
-  border:2px solid var(--main);
-  border-radius:14px;
-  padding:15px;
-  text-align:center;
-  margin:auto;
-}
-
-.id-card img{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  border:2px solid var(--main);
-  object-fit:cover;
-}
-
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:15px;
-}
-
-.gallery div{
-  background:#eee;
-  padding:10px;
-  border-radius:10px;
-  text-align:center;
-}
-
-.watermark{
-  position:fixed;
-  top:35%;
-  left:5%;
-  font-size:120px;
-  color:rgba(11,83,148,0.07);
-  transform:rotate(-30deg);
-  user-select:none;
-}
-
-footer{
-  background:#111;
-  color:#fff;
-  text-align:center;
-  padding:20px;
-}
-
+table{width:100%;border-collapse:collapse}
+th,td{border:1px solid #ccc;padding:8px;text-align:center}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.gallery div{background:#ddd;height:100px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.modal{display:none;position:fixed;z-index:999;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);align-items:center;justify-content:center}
+.modal-content{background:#fff;padding:20px;border-radius:12px;width:90%;max-width:500px;position:relative}
+.close{position:absolute;top:10px;right:15px;cursor:pointer;font-size:18px;font-weight:bold}
+.id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;text-align:center;margin:auto}
+.id-card img{width:90px;height:90px;border-radius:50%;object-fit:cover}
+.qrcode{margin:10px auto}
+footer{background:#111;color:#fff;text-align:center;padding:15px}
+.social-icons i{margin:0 8px;cursor:pointer}
+.scholar-card{background:#eee;padding:10px;border-radius:10px;text-align:center}
+.scholar-card:hover{background:#ddd}
 @media print{
   body *{visibility:hidden}
   .printable,.printable *{visibility:visible}
-  .printable{position:absolute;top:0;left:0;width:100%}
+  .printable{position:absolute;top:20px;left:0;right:0}
 }
 </style>
 </head>
-
 <body>
 
-<div class="watermark">CAF</div>
-
 <header>
+<img src="" alt="CAF LOGO">
 <h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
-<p>Motto: Educate, Aware and Better Community</p>
+<p><strong>NGURU L.G Branch | Motto:</strong> Educate, Aware and Better Community</p>
 </header>
 
 <nav>
 <button onclick="show('home')">Home</button>
 <button onclick="show('register')">Register</button>
-<button onclick="show('card')">ID Card</button>
-<button onclick="show('attendance')">Attendance</button>
-<button onclick="show('gallery')">Gallery</button>
-<button onclick="show('contact')">Contact</button>
+<button onclick="show('login')">Login</button>
+<button onclick="logout()">Logout</button>
+<button onclick="show('adminDashboard')">Admin</button>
 </nav>
 
 <!-- HOME -->
 <section id="home">
+<h2>Welcome Message</h2>
+<p><strong>Admin:</strong> Welcome to CAF. Together we educate, create awareness and build a better community.</p>
 <h2>Mission</h2>
-<p>To educate, raise awareness, and empower communities toward positive change.</p>
-
+<p>To educate and raise awareness that strengthens communities socially and morally.</p>
 <h2>Vision</h2>
-<p>An informed, peaceful, and progressive society.</p>
-
-<h2>Islamic Quotes</h2>
-<blockquote>
-“Seeking knowledge is an obligation upon every Muslim.”  
-<br><strong>– Prophet Muhammad (ﷺ)</strong>
-</blockquote>
-
-<blockquote>
-“Allah will raise those who have believed among you and those who were given knowledge, by degrees.”  
-<br><strong>– Qur’an 58:11</strong>
-</blockquote>
-
-<h2>Routes of Education</h2>
-<ul>
-<li>Formal Education</li>
-<li>Community Awareness</li>
-<li>Moral & Religious Education</li>
-</ul>
+<p>A peaceful, informed and progressive community.</p>
+<h2>Quotes</h2>
+<p><em>“Education is the most powerful weapon which you can use to change the world.” – Nelson Mandela</em></p>
+<p><em>“Seek knowledge from the cradle to the grave.” – Prophet Muhammad ﷺ</em></p>
+<h2>Follow us</h2>
+<div class="social-icons">
+<i class="fab fa-facebook fa-lg"></i>
+<i class="fab fa-x-twitter fa-lg"></i>
+<i class="fab fa-instagram fa-lg"></i>
+<i class="fab fa-tiktok fa-lg"></i>
+</div>
+<h2>Virtual Nigerian Scholars</h2>
+<div class="gallery" id="scholarsGallery">
+  <div class="scholar-card" onclick="showScholar('sheikhDahiru')">Sheikh Dahiru Usman Bauchi</div>
+  <div class="scholar-card" onclick="showScholar('woleSoyinka')">Prof. Wole Soyinka</div>
+  <div class="scholar-card" onclick="showScholar('chinuaAchebe')">Chinua Achebe</div>
+</div>
 </section>
 
-<!-- REGISTRATION -->
+<div class="modal" id="scholarModal">
+<div class="modal-content">
+<span class="close" onclick="closeScholar()">&times;</span>
+<h3 id="scholarName"></h3>
+<p id="scholarBio"></p>
+</div>
+</div>
+
+<!-- REGISTER -->
 <section id="register" class="hidden printable">
-<div class="form-box">
-<div class="form-header">
-<h2>CAF NGURU L.G BRANCH</h2>
-<p>Motto: Educate, Aware and Better Community</p>
-</div>
+<h2>Membership Registration</h2>
+<input id="rName" placeholder="Full Name">
+<input id="rAge" placeholder="Age">
+<select id="rGender"><option value="">Gender</option><option>Male</option><option>Female</option></select>
+<input id="rPhone" placeholder="Phone Number">
+<input id="rEmail" placeholder="Email Address">
+<input id="rSchool" placeholder="School Attended">
+<select id="rMarital"><option value="">Marital Status</option><option>Single</option><option>Married</option></select>
+<input type="file" id="rPhoto" accept="image/*">
+<input type="password" id="rPass" placeholder="Create Password">
+<div><input type="checkbox" id="rPolicy"> I accept CAF policies, conditions, and constitution.</div>
+<button onclick="register()">Submit Registration</button>
+<button onclick="window.print()">Print Registration Form</button>
+</section>
 
-<div class="id-display">ID NUMBER: <span id="genID"></span></div>
-
-<h2>Personal Information</h2>
-<div class="row">
-<input id="name" placeholder="Full Name">
-<input id="age" placeholder="Age">
-<select id="sex"><option>Male</option><option>Female</option></select>
-<input id="phone" placeholder="Phone Number">
-<input id="email" placeholder="Email Address">
-<input id="school" placeholder="School Attended">
-</div>
-
-<h2>Passport</h2>
-<input type="file" id="photo" accept="image/*">
-
-<label>
-<input type="checkbox" id="agree"> I accept CAF policies and constitution
-</label>
-
-<div class="signature">
-<div>SEC. GEN. SIGN</div>
-<div>CHAIRMAN SIGN</div>
-</div>
-
-<button onclick="submitForm()">Submit & Generate Card</button>
-</div>
+<!-- LOGIN -->
+<section id="login" class="hidden">
+<h2>Login</h2>
+<input id="lUser" placeholder="Email / Username">
+<input id="lPass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
 </section>
 
 <!-- ID CARD -->
-<section id="card" class="hidden printable">
-<h2>Membership Card</h2>
+<section id="idSection" class="hidden printable">
+<h2>My ID Card</h2>
 <div class="id-card">
-<img id="cardPhoto">
+<img id="idPhoto">
 <h3>CAF MEMBER</h3>
-<p id="cName"></p>
-<p id="cID"></p>
-<p id="cEmail"></p>
+<p><strong>Name:</strong> <span id="idName"></span></p>
+<p><strong>ID No:</strong> <span id="idNo"></span></p>
+<p><strong>Email:</strong> <span id="idEmail"></span></p>
+<div class="qrcode" id="idQR"></div>
+<p>Status: Active</p>
 </div>
 <button onclick="window.print()">Print ID Card</button>
 </section>
 
-<!-- ATTENDANCE -->
-<section id="attendance" class="hidden printable">
-<h2>Attendance Register</h2>
-<table border="1" width="100%" cellpadding="8">
-<tr><th>Name</th><th>ID</th><th>Status</th></tr>
-<tr><td id="aName"></td><td id="aID"></td><td>✔ Present</td></tr>
-</table>
-<button onclick="window.print()">Print Attendance</button>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-<h2>Nigerian Scholars Gallery</h2>
-<div class="gallery">
-<div>Sheikh Uthman Dan Fodio</div>
-<div>Sheikh Ja’afar Mahmoud Adam</div>
-<div>Sheikh Abubakar Gumi</div>
-<div>Prof. Attahiru Jega</div>
-</div>
+<!-- ADMIN DASHBOARD -->
+<section id="adminDashboard" class="hidden">
+<h2>Attendance Dashboard (Admin)</h2>
+<table id="attendanceTable"></table>
+<button onclick="printAttendance()">Print Attendance</button>
 </section>
 
 <!-- CONTACT -->
-<section id="contact">
+<section>
 <h2>Contact Us</h2>
+<textarea id="contactMessage" placeholder="Your message"></textarea>
+<button onclick="submitContact()">Send Message</button>
 <p>Email: communityawarenessforum1234@gmail.com</p>
 <p>Phone: 08122280304</p>
-<p>
-<i class="fab fa-facebook"></i>
-<i class="fab fa-x-twitter"></i>
-<i class="fab fa-instagram"></i>
-<i class="fab fa-tiktok"></i>
-</p>
 </section>
 
 <footer>
-<p>&copy; 2026 Community Awareness Forum. All Rights Reserved.</p>
+<p>&copy; 2026 Community Awareness Forum | All rights reserved</p>
 </footer>
 
-<script>
-function show(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+// 🔑 REPLACE WITH YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// ===== REGISTER =====
+window.register = async function(){
+  if(!rPolicy.checked){ alert('Please accept the CAF policies'); return; }
+  const name=rName.value, age=rAge.value, gender=rGender.value, phone=rPhone.value, email=rEmail.value, school=rSchool.value, marital=rMarital.value, pass=rPass.value, photo=rPhoto.files[0];
+  if(!name||!email||!pass||!photo){alert('All fields required'); return;}
+  const userCred = await createUserWithEmailAndPassword(auth,email,pass);
+  const uid = userCred.user.uid;
+  const photoRef = ref(storage,"passports/"+uid);
+  await uploadBytes(photoRef,photo);
+  const photoURL = await getDownloadURL(photoRef);
+  const idNumber = "CAF-"+new Date().getFullYear()+"-"+uid.slice(0,6);
+  await setDoc(doc(db,"members",uid),{name,age,gender,phone,email,school,marital,photoURL,idNumber,createdAt:new Date()});
+  alert('Registration successful! Please login now.');
+};
+
+// ===== LOGIN =====
+window.login = async function(){
+  const email = lUser.value, pass = lPass.value;
+  try{
+    const userCred = await signInWithEmailAndPassword(auth,email,pass);
+    const uid = userCred.user.uid;
+    const snap = await getDoc(doc(db,"members",uid));
+    const m = snap.data();
+    show("idSection");
+    idName.innerText = m.name;
+    idEmail.innerText = m.email;
+    idNo.innerText = m.idNumber;
+    idPhoto.src = m.photoURL;
+    new QRCode(document.getElementById("idQR"),{text: m.idNumber + " - " + m.name, width:100, height:100});
+  } catch(e){alert("Invalid login");}
+};
+
+function logout(){location.reload();}
+
+// ===== ATTENDANCE =====
+async function printAttendance(){
+  const table=document.getElementById("attendanceTable");
+  table.innerHTML="<tr><th>Name</th><th>ID No</th><th>Mark Present</th></tr>";
+  const membersSnap = await getDocs(collection(db,"members"));
+  membersSnap.forEach(docSnap=>{
+    const m=docSnap.data();
+    const r=table.insertRow();
+    r.insertCell(0).innerText=m.name;
+    r.insertCell(1).innerText=m.idNumber;
+    const btn=document.createElement("button");
+    btn.innerText="Present";
+    btn.onclick = ()=>{alert(m.name+" marked present")};
+    r.insertCell(2).appendChild(btn);
+  });
+  window.print();
 }
 
-const idNum = "CAF-NGR-" + Math.floor(10000+Math.random()*90000);
-genID.innerText = idNum;
+// ===== CONTACT =====
+function submitContact(){if(!contactMessage.value.trim()) return alert("Enter message"); alert("Message sent successfully"); contactMessage.value="";}
 
-function submitForm(){
-  if(!agree.checked){alert("Accept CAF policies");return;}
-  cName.innerText = name.value;
-  cID.innerText = idNum;
-  cEmail.innerText = email.value;
-  aName.innerText = name.value;
-  aID.innerText = idNum;
+// ===== SHOW SECTION =====
+function show(id){document.querySelectorAll("section").forEach(s=>s.classList.add("hidden")); document.getElementById(id).classList.remove("hidden");}
 
-  const file = photo.files[0];
-  if(file){
-    const r = new FileReader();
-    r.onload = ()=> cardPhoto.src = r.result;
-    r.readAsDataURL(file);
-  }
-  show("card");
-}
+// ===== SCHOLARS MODAL =====
+const scholarData = {
+  sheikhDahiru: {name: 'Sheikh Dahiru Usman Bauchi', bio: 'Prominent Islamic scholar from Bauchi, Nigeria, specializing in Hadith and Quranic studies.'},
+  woleSoyinka: {name: 'Prof. Wole Soyinka', bio: 'Nigerian playwright, poet, and essayist. Nobel Laureate in Literature.'},
+  chinuaAchebe: {name: 'Chinua Achebe', bio: 'Renowned Nigerian novelist, famous for "Things Fall Apart".'}
+};
+function showScholar(id){document.getElementById('scholarName').innerText=scholarData[id].name; document.getElementById('scholarBio').innerText=scholarData[id].bio; document.getElementById('scholarModal').style.display='flex';}
+function closeScholar(){document.getElementById('scholarModal').style.display='none';}
 </script>
 
 </body>
-  </html>
+</html>
