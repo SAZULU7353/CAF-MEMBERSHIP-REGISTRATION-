@@ -6,23 +6,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{font-family:Arial;margin:0;background:#f4f6f8}
-header{background:#0b5394;color:#fff;padding:15px;text-align:center}
-section{background:#fff;margin:15px;padding:15px;border-radius:8px}
-h2{color:#0b5394}
-input,button,textarea{width:100%;padding:8px;margin:5px 0}
-button{background:#0b5394;color:#fff;border:none;border-radius:5px;cursor:pointer}
-button:hover{opacity:.9}
+:root{
+  --main:#0b5394;
+  --accent:#f1c232;
+  --bg:#f4f6f8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Segoe UI,Arial;background:var(--bg)}
+header{background:var(--main);color:#fff;padding:20px;text-align:center}
+header img{height:60px}
+nav{background:#fff;display:flex;flex-wrap:wrap;justify-content:center;gap:15px;padding:10px}
+nav button{border:none;background:var(--main);color:#fff;padding:8px 14px;border-radius:6px;cursor:pointer}
+section{background:#fff;margin:15px;padding:20px;border-radius:12px}
+h2{color:var(--main)}
+input,select,textarea,button{width:100%;padding:8px;margin:6px 0}
+button{background:var(--main);color:#fff;border:none;border-radius:6px}
 table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border:1px solid #ccc;padding:8px;text-align:left}
-.id-card{width:300px;border:2px solid #0b5394;border-radius:10px;padding:10px;text-align:center;margin:10px auto}
-.id-card h3{margin:5px 0;color:#0b5394}
+th,td{border:1px solid #ccc;padding:8px}
 .hidden{display:none}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.gallery div{background:#ddd;height:100px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.id-card{width:320px;border:2px solid var(--main);border-radius:12px;padding:12px;text-align:center;margin:auto}
+.id-card img{width:80px;height:80px;border-radius:50%;object-fit:cover}
+footer{background:#111;color:#fff;text-align:center;padding:15px}
 
 @media print{
   body *{visibility:hidden}
   .id-card,.id-card *{visibility:visible}
-  .id-card{position:absolute;left:0;right:0;top:20px}
+  .id-card{position:absolute;top:20px;left:0;right:0}
 }
 </style>
 </head>
@@ -30,189 +41,156 @@ th,td{border:1px solid #ccc;padding:8px;text-align:left}
 <body>
 
 <header>
+<img src="" alt="CAF LOGO (add logo)">
 <h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
+<p><em>Building awareness • Strengthening community</em></p>
 </header>
 
-<!-- LOGIN -->
-<section id="loginSection">
-<h2>Login</h2>
-<input id="loginEmail" placeholder="Username">
-<input id="loginPassword" type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-</section>
-
-<!-- LOGOUT -->
-<section id="logoutSection" class="hidden">
+<nav>
+<button onclick="show('home')">Home</button>
+<button onclick="show('register')">Register</button>
+<button onclick="show('login')">Login</button>
 <button onclick="logout()">Logout</button>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+<h2>Welcome Message</h2>
+<p><strong>Admin:</strong> Welcome to the Community Awareness Forum (CAF). Together, we promote peace, education, and social responsibility.</p>
+
+<h2>Mission</h2>
+<p>To educate, empower, and unite communities for positive social development.</p>
+
+<h2>Vision</h2>
+<p>A responsible, informed, and peaceful society.</p>
 </section>
 
 <!-- REGISTER -->
-<section id="registerSection">
-<h2>Member Registration</h2>
-<input id="regName" placeholder="Full Name">
-<input id="regEmail" placeholder="Username">
-<input id="regPassword" type="password" placeholder="Password">
-<button onclick="register()">Register</button>
+<section id="register" class="hidden">
+<h2>Membership Registration</h2>
+<input id="rName" placeholder="Full Name">
+<input id="rEmail" placeholder="Username">
+<input id="rPhone" placeholder="Phone Number">
+<select id="rGender">
+<option value="">Gender</option>
+<option>Male</option>
+<option>Female</option>
+</select>
+<input type="file" id="rPhoto" accept="image/*">
+<input type="password" id="rPass" placeholder="Password">
+<button onclick="register()">Submit Registration</button>
 </section>
 
-<!-- PENDING APPROVAL -->
-<section id="pendingSection" class="hidden">
-<h2>Pending Members (Admin)</h2>
+<!-- LOGIN -->
+<section id="login" class="hidden">
+<h2>Login</h2>
+<input id="lUser" placeholder="Username">
+<input id="lPass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+</section>
+
+<!-- ADMIN -->
+<section id="admin" class="hidden">
+<h2>Pending Members</h2>
 <table id="pendingTable"></table>
-</section>
 
-<!-- MEMBERS -->
-<section id="membersSection" class="hidden">
-<h2>Approved Members (Admin)</h2>
+<h2>Approved Members</h2>
 <table id="memberTable"></table>
+
+<button onclick="window.print()">Print Attendance</button>
 </section>
 
 <!-- ID CARD -->
 <section id="idSection" class="hidden">
 <h2>My ID Card</h2>
-<div class="id-card" id="idCard">
-<h3>CAF MEMBER ID</h3>
-<p><strong>Name:</strong> <span id="idName"></span></p>
-<p><strong>Username:</strong> <span id="idEmail"></span></p>
-<p><strong>Status:</strong> Active Member</p>
+<div class="id-card">
+<img id="idPhoto">
+<h3>CAF MEMBER</h3>
+<p id="idName"></p>
+<p id="idEmail"></p>
+<p>Status: Active</p>
 </div>
 <button onclick="window.print()">Print ID Card</button>
+</section>
+
+<!-- GALLERY -->
+<section>
+<h2>CAF Gallery</h2>
+<div class="gallery">
+<div>Event 1</div>
+<div>Event 2</div>
+<div>Event 3</div>
+<div>Event 4</div>
+</div>
 </section>
 
 <!-- CONTACT -->
 <section>
 <h2>Contact Us</h2>
 <textarea id="contactMessage" placeholder="Your message"></textarea>
-<button onclick="submitContact()">Send Message</button>
+<button onclick="submitContact()">Send</button>
 <p>Email: communityawarenessforum1234@gmail.com</p>
 <p>Phone: 08122280304</p>
 </section>
 
+<footer>
+<p>&copy; 2026 Community Awareness Forum. All rights reserved.</p>
+</footer>
+
 <script>
-/* ===== ADMIN ===== */
-const adminAccount={
-  email:"caf1234",
-  password:"Caf1234",
-  role:"admin"
-};
+const admin={user:"caf1234",pass:"Caf1234"};
+let pending=[],members=[],current=null,role=null;
 
-/* ===== DATA ===== */
-let members=[];
-let pendingMembers=[];
-let currentUser=null;
-let currentUserType=null;
-
-/* ===== LOGIN ===== */
-function login(){
-  const e=loginEmail.value.trim();
-  const p=loginPassword.value.trim();
-
-  if(!e||!p){alert("Fill all fields");return;}
-
-  if(e===adminAccount.email && p===adminAccount.password){
-    currentUser=adminAccount;
-    currentUserType="admin";
-    afterLogin();
-    alert("Admin login successful");
-    return;
-  }
-
-  const m=members.find(x=>x.email===e && x.password===p);
-  if(m){
-    currentUser=m;
-    currentUserType="member";
-    afterLogin();
-    showIDCard();
-    alert("Member login successful");
-    return;
-  }
-
-  alert("Invalid credentials");
+function show(id){
+document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+document.getElementById(id).classList.remove("hidden");
 }
 
-/* ===== LOGOUT ===== */
-function logout(){
-  currentUser=null;
-  currentUserType=null;
-  location.reload();
-}
-
-/* ===== AFTER LOGIN ===== */
-function afterLogin(){
-  loginSection.classList.add("hidden");
-  logoutSection.classList.remove("hidden");
-
-  if(currentUserType==="admin"){
-    pendingSection.classList.remove("hidden");
-    membersSection.classList.remove("hidden");
-    updatePendingTable();
-    updateMemberTable();
-  }
-}
-
-/* ===== REGISTER ===== */
 function register(){
-  if(!regName.value||!regEmail.value||!regPassword.value){
-    alert("All fields required");return;
-  }
-  pendingMembers.push({
-    fullname:regName.value,
-    email:regEmail.value,
-    password:regPassword.value
-  });
-  alert("Registration submitted. Await approval.");
-  regName.value=regEmail.value=regPassword.value="";
+const reader=new FileReader();
+const file=rPhoto.files[0];
+reader.onload=()=>pending.push({
+name:rName.value,email:rEmail.value,phone:rPhone.value,
+gender:rGender.value,pass:rPass.value,photo:reader.result
+});
+if(file) reader.readAsDataURL(file);
+alert("Registration submitted. Await approval.");
 }
 
-/* ===== APPROVE ===== */
-function updatePendingTable(){
-  pendingTable.innerHTML="<tr><th>Name</th><th>Username</th><th>Action</th></tr>";
-  pendingMembers.forEach((m,i)=>{
-    let r=pendingTable.insertRow();
-    r.insertCell(0).innerText=m.fullname;
-    r.insertCell(1).innerText=m.email;
-    let b=document.createElement("button");
-    b.innerText="Approve";
-    b.onclick=()=>approveMember(i);
-    r.insertCell(2).appendChild(b);
-  });
+function login(){
+if(lUser.value===admin.user && lPass.value===admin.pass){
+role="admin";show("admin");updateTables();return;
+}
+const m=members.find(x=>x.email===lUser.value && x.pass===lPass.value);
+if(m){current=m;show("idSection");
+idName.innerText=m.name;idEmail.innerText=m.email;idPhoto.src=m.photo;return;}
+alert("Invalid login");
 }
 
-function approveMember(i){
-  members.push(pendingMembers[i]);
-  pendingMembers.splice(i,1);
-  updatePendingTable();
-  updateMemberTable();
+function logout(){location.reload();}
+
+function updateTables(){
+pendingTable.innerHTML="<tr><th>Name</th><th>Approve</th></tr>";
+pending.forEach((m,i)=>{
+let r=pendingTable.insertRow();
+r.insertCell(0).innerText=m.name;
+let b=document.createElement("button");
+b.innerText="Approve";b.onclick=()=>{members.push(m);pending.splice(i,1);updateTables();}
+r.insertCell(1).appendChild(b);
+});
+memberTable.innerHTML="<tr><th>Name</th><th>Remove</th></tr>";
+members.forEach((m,i)=>{
+let r=memberTable.insertRow();
+r.insertCell(0).innerText=m.name;
+let b=document.createElement("button");
+b.innerText="Remove";b.onclick=()=>{members.splice(i,1);updateTables();}
+r.insertCell(1).appendChild(b);
+});
 }
 
-/* ===== MEMBERS ===== */
-function updateMemberTable(){
-  memberTable.innerHTML="<tr><th>Name</th><th>Username</th><th>Remove</th></tr>";
-  members.forEach((m,i)=>{
-    let r=memberTable.insertRow();
-    r.insertCell(0).innerText=m.fullname;
-    r.insertCell(1).innerText=m.email;
-    let b=document.createElement("button");
-    b.innerText="Remove";
-    b.onclick=()=>{members.splice(i,1);updateMemberTable();}
-    r.insertCell(2).appendChild(b);
-  });
-}
-
-/* ===== ID CARD ===== */
-function showIDCard(){
-  idSection.classList.remove("hidden");
-  idName.innerText=currentUser.fullname;
-  idEmail.innerText=currentUser.email;
-}
-
-/* ===== CONTACT ===== */
 function submitContact(){
-  if(!contactMessage.value.trim()){
-    alert("Enter message");return;
-  }
-  alert("Message sent. Thank you!");
-  contactMessage.value="";
+if(!contactMessage.value.trim())return alert("Enter message");
+alert("Message sent successfully");contactMessage.value="";
 }
 </script>
 
