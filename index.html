@@ -2,365 +2,219 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<title>Community Awareness Forum (CAF)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COMMUNITY AWARENESS FORUM - NGURU BRANCH</title>
+
 <style>
-:root{
-  --red:#dc2626; --black:#111; --yellow:#facc15; --orange:#f97316; --bg:#f3f4f6; --card:#fff;
+body{font-family:Arial;margin:0;background:#f4f6f8}
+header{background:#0b5394;color:#fff;padding:15px;text-align:center}
+section{background:#fff;margin:15px;padding:15px;border-radius:8px}
+h2{color:#0b5394}
+input,button,textarea{width:100%;padding:8px;margin:5px 0}
+button{background:#0b5394;color:#fff;border:none;border-radius:5px;cursor:pointer}
+button:hover{opacity:.9}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{border:1px solid #ccc;padding:8px;text-align:left}
+.id-card{width:300px;border:2px solid #0b5394;border-radius:10px;padding:10px;text-align:center;margin:10px auto}
+.id-card h3{margin:5px 0;color:#0b5394}
+.hidden{display:none}
+
+@media print{
+  body *{visibility:hidden}
+  .id-card,.id-card *{visibility:visible}
+  .id-card{position:absolute;left:0;right:0;top:20px}
 }
-*{box-sizing:border-box;}
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--black);}
-header{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;text-align:center;padding:25px 10px;}
-header h1{margin:0;font-size:28px;font-weight:bold;}
-header p{margin:5px 0 0;font-size:14px;}
-section{max-width:1100px;margin:20px auto;background:var(--card);padding:20px;border-radius:12px;box-shadow:0 10px 20px rgba(0,0,0,.08);}
-.hidden{display:none;}
-h2{color:var(--red);margin-top:0;}
-input,textarea,select{width:100%;padding:10px;margin:6px 0;border-radius:6px;border:1px solid #cbd5e1;font-size:14px;}
-textarea{resize:none;}
-button{padding:12px 18px;border:none;border-radius:8px;font-size:15px;cursor:pointer;color:#fff;background:var(--orange);margin-top:8px;}
-button:hover{opacity:.9;}
-button.secondary{background:var(--yellow);color:#000;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;}
-.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center;}
-.hero img{width:100%;border-radius:12px;min-height:220px;object-fit:cover;background:#e5e7eb;}
-.id-card{width:360px;margin:auto;padding:20px;border-radius:12px;background:#fff;color:#000;border:2px solid #000;position:relative;font-size:14px;}
-.id-card img{width:90px;height:90px;border-radius:6px;margin:5px;border:1px solid #000;}
-.id-card .box{background:#f3f3f3;color:#000;padding:8px;border-radius:6px;margin-top:10px;font-size:13px;border:1px solid #000;}
-.sign{margin-top:15px;border-top:1px solid #000;padding-top:5px;font-size:12px;display:flex;justify-content:space-between;}
-.sign span{flex:1;text-align:center;}
-footer{text-align:center;margin-top:20px;font-size:13px;color:#64748b;}
-#login{display:flex;justify-content:center;align-items:center;min-height:60vh;}
-#login .login-card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.15);width:300px;text-align:center;}
-#login h2{margin-bottom:20px;color:var(--orange);}
-#login input{margin-bottom:15px;}
-#themeSelector{margin-bottom:15px;padding:6px;border-radius:6px;border:1px solid #cbd5e1;width:100%;}
-table{width:100%;border-collapse:collapse;margin-top:10px;}
-table, th, td{border:1px solid #cbd5e1;}
-th, td{padding:8px;text-align:center;}
-.printable{border:2px solid #000;padding:10px;margin-top:10px;}
-textarea{height:80px;}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>COMMUNITY AWARENESS FORUM</h1>
-<p>Building informed, united and empowered communities (Nguru Branch)</p>
+<h1>COMMUNITY AWARENESS FORUM (CAF)</h1>
 </header>
 
 <!-- LOGIN -->
-<section id="login">
-<div class="login-card">
+<section id="loginSection">
 <h2>Login</h2>
-<select id="themeSelector" onchange="changeTheme()">
-<option value="default">Select Theme</option>
-<option value="red">Red</option>
-<option value="black">Black</option>
-<option value="yellow">Yellow</option>
-<option value="orange">Orange</option>
-</select>
-<input id="luser" placeholder="Username (Email for members)">
-<input id="lpass" type="password" placeholder="Password">
-<select id="loginType">
-<option value="admin">Admin</option>
-<option value="member">Member</option>
-</select>
-<button type="button" onclick="login()">Login</button>
-</div>
+<input id="loginEmail" placeholder="Username">
+<input id="loginPassword" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
 </section>
 
-<!-- DASHBOARD -->
-<section id="dashboard" class="hidden">
-<button onclick="logout()" style="float:right;background:red;">Logout</button>
-<div class="hero">
-<div>
-<h2>Welcome to COMMUNITY AWARENESS FORUM</h2>
-<p>View community activities, upcoming projects, and engage with your fellow members.</p>
-<input type="file" id="galleryUpload" multiple onchange="addGalleryImages()" class="hidden">
-</div>
-<div id="gallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;"></div>
-</div>
-<br>
-<div class="grid">
-<button onclick="show('register')">Membership Registration</button>
-<button onclick="show('idcard')">My ID Card</button>
-<button onclick="show('projects')">Forum Projects</button>
-<button onclick="show('attendance')">Attendance</button>
-<button onclick="show('members')">Members List</button>
-<button onclick="show('about')">About CAF</button>
-<button onclick="show('contact')">Contact Us</button>
-<button onclick="show('passwordChange')">Change Password</button>
-</div>
-<footer>All rights reserved &copy; CAF 2025</footer>
+<!-- LOGOUT -->
+<section id="logoutSection" class="hidden">
+<button onclick="logout()">Logout</button>
 </section>
 
-<!-- REGISTRATION -->
-<section id="register" class="hidden printable">
-<h2>COMMUNITY AWARENESS FORUM</h2>
-<h3>Membership Registration Form</h3>
-<form id="regForm" onsubmit="return false;">
-<input placeholder="Full Name" id="fullname" required>
-<input placeholder="Phone Number" id="phone" required>
-<input placeholder="Email" id="email" required>
-<input placeholder="Address" id="address" required>
-<input placeholder="Position" id="position" required>
-<input placeholder="Next of Kin Full Name" id="kinName" required>
-<input placeholder="Next of Kin Phone Number" id="kinPhone" required>
-<input type="file" id="passport" accept="image/*">
-<div>
-<input type="checkbox" id="agree" required> I agree with the Terms, Constitution and Policies of CAF
-</div>
-<div class="sign">
-<span>Chairman Signature</span>
-<span>Secretary Signature</span>
-</div>
-<div class="box">CAF ID: <span id="regCAFID"></span></div>
-<div class="box">Default Username: COMMUNITY</div>
-<div class="box">Default Password: caf1234</div>
-<button onclick="submitRegistration()">Submit Registration</button>
-</form>
+<!-- REGISTER -->
+<section id="registerSection">
+<h2>Member Registration</h2>
+<input id="regName" placeholder="Full Name">
+<input id="regEmail" placeholder="Username">
+<input id="regPassword" type="password" placeholder="Password">
+<button onclick="register()">Register</button>
+</section>
+
+<!-- PENDING APPROVAL -->
+<section id="pendingSection" class="hidden">
+<h2>Pending Members (Admin)</h2>
+<table id="pendingTable"></table>
+</section>
+
+<!-- MEMBERS -->
+<section id="membersSection" class="hidden">
+<h2>Approved Members (Admin)</h2>
+<table id="memberTable"></table>
 </section>
 
 <!-- ID CARD -->
-<section id="idcard" class="hidden printable">
-<h2>Member ID Card</h2>
-<div class="id-card">
-<p style="font-weight:bold;text-align:center;">COMMUNITY AWARENESS FORUM</p>
-<div style="display:flex;justify-content:center;align-items:center;gap:10px;">
-<img id="idPassport" src="" alt="Passport Photo">
+<section id="idSection" class="hidden">
+<h2>My ID Card</h2>
+<div class="id-card" id="idCard">
+<h3>CAF MEMBER ID</h3>
+<p><strong>Name:</strong> <span id="idName"></span></p>
+<p><strong>Username:</strong> <span id="idEmail"></span></p>
+<p><strong>Status:</strong> Active Member</p>
 </div>
-<p id="idName">Full Name (CAF)</p>
-<div class="box">CAF ID: <span id="idCAFID">CAF-2025-001</span></div>
-<div class="box">Email: <span id="idEmail"></span></div>
-<div class="box">Phone: <span id="idPhone"></span></div>
-<div class="box">Position: <span id="idPosition"></span></div>
-<div class="sign">
-<span>Chairman Signature</span>
-<span>Member Signature</span>
-</div>
-</div>
-<button onclick="printID()">Print ID Card</button>
+<button onclick="window.print()">Print ID Card</button>
 </section>
 
-<!-- MEMBERS LIST -->
-<section id="members" class="hidden">
-<h2>Members List</h2>
-<table id="memberTable">
-<tr><th>Full Name</th><th>Email</th><th>Remove</th></tr>
-</table>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="hidden">
-<h2>Forum Projects</h2>
-<ul id="projectList">
-<li>Community sensitization campaigns</li>
-<li>Youth engagement and leadership programs</li>
-<li>Advocacy & outreach initiatives</li>
-</ul>
-</section>
-
-<!-- ATTENDANCE -->
-<section id="attendance" class="hidden printable">
-<h2>Meeting Attendance</h2>
-<input placeholder="Your Full Name" id="attName" required>
-<input type="date" id="attDate">
-<input type="time" id="attTime">
-<button onclick="printAttendance()">Print Attendance</button>
-</section>
-
-<!-- ABOUT CAF -->
-<section id="about" class="hidden printable">
-<h2>About COMMUNITY AWARENESS FORUM</h2>
-<p>COMMUNITY AWARENESS FORUM (CAF) is dedicated to building informed, united, and empowered communities. Our programs include youth engagement, community sensitization, advocacy initiatives, and leadership development. We aim to create an inclusive environment where all members can contribute and grow together.</p>
-</section>
-
-<!-- CONTACT US -->
-<section id="contact" class="hidden printable">
+<!-- CONTACT -->
+<section>
 <h2>Contact Us</h2>
-<p>Email: communityawarenessforum7353@gmail.com</p>
-<p>Phone: 08122280304</p>
-<textarea id="contactMessage" placeholder="Type your message here..."></textarea>
+<textarea id="contactMessage" placeholder="Your message"></textarea>
 <button onclick="submitContact()">Send Message</button>
-</section>
-
-<!-- PASSWORD CHANGE -->
-<section id="passwordChange" class="hidden">
-<h2>Change Password</h2>
-<input type="password" id="oldPass" placeholder="Current Password">
-<input type="password" id="newPass" placeholder="New Password">
-<button onclick="changePassword()">Change Password</button>
+<p>Email: communityawarenessforum1234@gmail.com</p>
+<p>Phone: 08122280304</p>
 </section>
 
 <script>
+/* ===== ADMIN ===== */
+const adminAccount={
+  email:"caf1234",
+  password:"Caf1234",
+  role:"admin"
+};
+
+/* ===== DATA ===== */
 let members=[];
-let memberCount=0;
+let pendingMembers=[];
 let currentUser=null;
 let currentUserType=null;
-const adminCreds={username:'cafreg',password:'caf7353'};
 
-// LOGIN
+/* ===== LOGIN ===== */
 function login(){
-  const username=document.getElementById('luser').value.trim();
-  const password=document.getElementById('lpass').value;
-  const type=document.getElementById('loginType').value;
+  const e=loginEmail.value.trim();
+  const p=loginPassword.value.trim();
 
-  if(type==='admin'){
-    if(username===adminCreds.username && password===adminCreds.password){
-      currentUser=username; currentUserType='admin'; showDashboard(); updateMemberTable(); enableGalleryUpload();
-    } else { alert('Invalid admin credentials'); return; }
-  } else {
-    let member=null;
-    if(username.toUpperCase()==='COMMUNITY' && password==='caf1234'){ member={fullname:'Default Member',email:'community@caf.com',phone:'N/A',position:'Member',cafID:'CAF-2025-000'}; }
-    else member=members.find(m=>m.email===username && m.password===password);
-    if(member){ currentUser=username; currentUserType='member'; generateIDCard(member); showDashboard(); }
-    else alert('Invalid member credentials');
+  if(!e||!p){alert("Fill all fields");return;}
+
+  if(e===adminAccount.email && p===adminAccount.password){
+    currentUser=adminAccount;
+    currentUserType="admin";
+    afterLogin();
+    alert("Admin login successful");
+    return;
   }
+
+  const m=members.find(x=>x.email===e && x.password===p);
+  if(m){
+    currentUser=m;
+    currentUserType="member";
+    afterLogin();
+    showIDCard();
+    alert("Member login successful");
+    return;
+  }
+
+  alert("Invalid credentials");
 }
 
-// LOGOUT
+/* ===== LOGOUT ===== */
 function logout(){
-  currentUser=null; currentUserType=null;
-  document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById('login').classList.remove('hidden');
+  currentUser=null;
+  currentUserType=null;
+  location.reload();
 }
 
-// SHOW SECTION
-function showDashboard(){
-  document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById('dashboard').classList.remove('hidden');
-}
-function show(id){
-  if(!currentUser){ alert('Please login first'); return; }
-  document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
-  document.getElementById('dashboard').classList.remove('hidden');
-  document.getElementById(id).classList.remove('hidden');
-}
+/* ===== AFTER LOGIN ===== */
+function afterLogin(){
+  loginSection.classList.add("hidden");
+  logoutSection.classList.remove("hidden");
 
-// REGISTER MEMBER
-function submitRegistration(){
-  let member={
-    fullname:document.getElementById('fullname').value,
-    email:document.getElementById('email').value,
-    phone:document.getElementById('phone').value,
-    address:document.getElementById('address').value,
-    position:document.getElementById('position').value,
-    kinName:document.getElementById('kinName').value,
-    kinPhone:document.getElementById('kinPhone').value,
-    passport:document.getElementById('passport').files[0],
-    password:'caf1234',
-    cafID:'CAF-2025-'+String(++memberCount).padStart(3,'0')
-  };
-  members.push(member);
-  alert('Registration successful! Use email and password caf1234 to login.');
-  document.getElementById('regCAFID').innerText=member.cafID;
-  document.getElementById('regForm').reset();
-  updateMemberTable();
-}
-
-// ID CARD
-function generateIDCard(member){
-  if(member.passport){
-    let reader=new FileReader();
-    reader.onload=e=>document.getElementById('idPassport').src=e.target.result;
-    reader.readAsDataURL(member.passport);
-  }
-  document.getElementById('idName').innerText=member.fullname+' (CAF)';
-  document.getElementById('idCAFID').innerText=member.cafID;
-  document.getElementById('idEmail').innerText=member.email;
-  document.getElementById('idPhone').innerText=member.phone;
-  document.getElementById('idPosition').innerText=member.position;
-}
-function printID(){ window.print(); }
-
-// GALLERY
-function addGalleryImages(){
-  if(currentUserType!=='admin'){ alert('Only admin can add images'); return; }
-  let files=document.getElementById('galleryUpload').files;
-  let gallery=document.getElementById('gallery');
-  for(let f of files){
-    let reader=new FileReader();
-    reader.onload=function(e){
-      let img=document.createElement('img');
-      img.src=e.target.result;
-      img.style.width='100%';
-      img.style.borderRadius='8px';
-      gallery.appendChild(img);
-    }
-    reader.readAsDataURL(f);
-  }
-}
-function enableGalleryUpload(){
-  document.getElementById('galleryUpload').classList.remove('hidden');
-}
-
-// THEME
-function changeTheme(){
-  let theme=document.getElementById('themeSelector').value;
-  switch(theme){
-    case 'red': document.body.style.background='#fee2e2'; document.body.style.color='#111'; break;
-    case 'black': document.body.style.background='#111'; document.body.style.color='#fff'; break;
-    case 'yellow': document.body.style.background='#fef9c3'; document.body.style.color='#111'; break;
-    case 'orange': document.body.style.background='#ffedd5'; document.body.style.color='#111'; break;
-    default: document.body.style.background='#f3f4f6'; document.body.style.color='#111';
+  if(currentUserType==="admin"){
+    pendingSection.classList.remove("hidden");
+    membersSection.classList.remove("hidden");
+    updatePendingTable();
+    updateMemberTable();
   }
 }
 
-// PASSWORD CHANGE
-function changePassword(){
-  const oldPass=document.getElementById('oldPass').value;
-  const newPass=document.getElementById('newPass').value;
-  if(currentUserType==='admin'){
-    if(oldPass===adminCreds.password){ adminCreds.password=newPass; alert('Admin password changed'); }
-    else alert('Incorrect current password');
-  } else {
-    let member=members.find(m=>m.email===currentUser);
-    if(member.password===oldPass){ member.password=newPass; alert('Password changed'); }
-    else alert('Incorrect current password');
+/* ===== REGISTER ===== */
+function register(){
+  if(!regName.value||!regEmail.value||!regPassword.value){
+    alert("All fields required");return;
   }
+  pendingMembers.push({
+    fullname:regName.value,
+    email:regEmail.value,
+    password:regPassword.value
+  });
+  alert("Registration submitted. Await approval.");
+  regName.value=regEmail.value=regPassword.value="";
 }
 
-// MEMBERS LIST
-function updateMemberTable(){
-  const table=document.getElementById('memberTable');
-  table.innerHTML='<tr><th>Full Name</th><th>Email</th><th>Remove</th></tr>';
-  if(currentUserType!=='admin') return;
-  members.forEach((m,i)=>{
-    let row=table.insertRow();
-    row.insertCell(0).innerText=m.fullname;
-    row.insertCell(1).innerText=m.email;
-    let btn=document.createElement('button');
-    btn.innerText='Remove';
-    btn.onclick=()=>removeMember(i);
-    row.insertCell(2).appendChild(btn);
+/* ===== APPROVE ===== */
+function updatePendingTable(){
+  pendingTable.innerHTML="<tr><th>Name</th><th>Username</th><th>Action</th></tr>";
+  pendingMembers.forEach((m,i)=>{
+    let r=pendingTable.insertRow();
+    r.insertCell(0).innerText=m.fullname;
+    r.insertCell(1).innerText=m.email;
+    let b=document.createElement("button");
+    b.innerText="Approve";
+    b.onclick=()=>approveMember(i);
+    r.insertCell(2).appendChild(b);
   });
 }
 
-// REMOVE MEMBER
-function removeMember(index){
-  if(confirm('Are you sure you want to remove this member?')){
-    members.splice(index,1);
-    updateMemberTable();
-    alert('Member removed.');
-  }
+function approveMember(i){
+  members.push(pendingMembers[i]);
+  pendingMembers.splice(i,1);
+  updatePendingTable();
+  updateMemberTable();
 }
 
-// ATTENDANCE
-function printAttendance(){
-  if(currentUserType!=='admin'){
-    alert('Only admin can print attendance.');
-    return;
-  }
-  window.print();
+/* ===== MEMBERS ===== */
+function updateMemberTable(){
+  memberTable.innerHTML="<tr><th>Name</th><th>Username</th><th>Remove</th></tr>";
+  members.forEach((m,i)=>{
+    let r=memberTable.insertRow();
+    r.insertCell(0).innerText=m.fullname;
+    r.insertCell(1).innerText=m.email;
+    let b=document.createElement("button");
+    b.innerText="Remove";
+    b.onclick=()=>{members.splice(i,1);updateMemberTable();}
+    r.insertCell(2).appendChild(b);
+  });
 }
 
-// CONTACT FORM
+/* ===== ID CARD ===== */
+function showIDCard(){
+  idSection.classList.remove("hidden");
+  idName.innerText=currentUser.fullname;
+  idEmail.innerText=currentUser.email;
+}
+
+/* ===== CONTACT ===== */
 function submitContact(){
-  const msg=document.getElementById('contactMessage').value.trim();
-  if(!msg){ alert('Please enter a message'); return; }
-  alert('Message sent! Thank you for contacting us.');
-  document.getElementById('contactMessage').value='';
+  if(!contactMessage.value.trim()){
+    alert("Enter message");return;
+  }
+  alert("Message sent. Thank you!");
+  contactMessage.value="";
 }
 </script>
+
 </body>
 </html>
